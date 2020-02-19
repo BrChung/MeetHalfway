@@ -69,3 +69,12 @@ def postsignup(request):
         return render(request,"midzo/signup.html",{"messg":message})
 
     return render(request,"midzo/login.html")
+
+def results(request):
+    location1 = request.POST.get('loc1')
+    location2 = request.POST.get('loc2')
+    print(location1)
+    print(location2)
+    result = "hi"
+
+    return render(request,"midzo/result.html",{"result":result})
