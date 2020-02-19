@@ -125,6 +125,6 @@ dmypy.json
 .pyre/
 
 .DS_Store
-.DS_Store
+
 midzo/googlemaps_config.json
 midzo/pyrebase_config.json
