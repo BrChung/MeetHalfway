@@ -1,19 +1,25 @@
+#Django
 from django.shortcuts import render
-import pyrebase
 from django.contrib import auth
-
 from django.http import HttpResponse
 
-pyrebase_config = {
-    'apiKey': "AIzaSyAzpWhi5kKgkhRpsatwzhbIGLPwutbDe1Q",
-    'authDomain': "project-midzo.firebaseapp.com",
-    'databaseURL': "https://project-midzo.firebaseio.com",
-    'projectId': "project-midzo",
-    'storageBucket': "project-midzo.appspot.com",
-    'messagingSenderId': "1051773897258",
-    'appId': "1:1051773897258:web:12c4d4e4cb00496051d153",
-    'measurementId': "G-B8NLQ2HPFF"
-}
+#Pyrebase
+import pyrebase
+
+#Google Maps
+import googlemaps
+from datetime import datetime
+
+#JSON
+import json
+
+with open ('pyrebase_config.json') as json_file:
+    pyrebase_config = json.load(json_file)
+
+with open('googlemaps_config.json') as json_file:
+    googlemaps_config = json.load(json_file)
+
+googlemaps_API_key = googlemaps_config['apiKey']
 
 firebase = pyrebase.initialize_app(pyrebase_config)
 print("Firebase ... OK")
@@ -21,6 +27,7 @@ firebase_auth = firebase.auth()
 print("Firebase Authentication ... OK")
 database = firebase.database()
 print("Firebase Database ... OK")
+gmaps = googlemaps.Client(key=googlemaps_API_key)
 
 def home(request):
     return HttpResponse("Hello, world.")
