@@ -28,6 +28,7 @@ print("Firebase Authentication ... OK")
 database = firebase.database()
 print("Firebase Database ... OK")
 gmaps = googlemaps.Client(key=googlemaps_API_key)
+print("Google Maps Integration ... OK")
 
 def home(request):
     return HttpResponse("Hello, world.")
@@ -80,8 +81,20 @@ def postsignup(request):
 def results(request):
     location1 = request.POST.get('loc1')
     location2 = request.POST.get('loc2')
-    print(location1)
-    print(location2)
-    result = "hi"
+    geocode_result1 = gmaps.geocode(location1)
+    geocode_result2 = gmaps.geocode(location2)
+    lat1 = geocode_result1[0]["geometry"]["location"]["lat"]
+    lng1 = geocode_result1[0]["geometry"]["location"]["lng"]
+    lat2 = geocode_result2[0]["geometry"]["location"]["lat"]
+    lng2 = geocode_result2[0]["geometry"]["location"]["lng"]
+    adrs1 = geocode_result1[0]["formatted_address"]
+    adrs2 = geocode_result2[0]["formatted_address"]
+
+    res_lat = (lat1 + lat2) / 2
+    res_lng = (lng1 + lng2) / 2
+
+    print("Address 1: " + adrs1 + "\nAddress 2: " + adrs2)
+
+    result = str(res_lat) + ", " + str(res_lng)
 
     return render(request,"midzo/result.html",{"result":result})
