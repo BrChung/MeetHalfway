@@ -95,6 +95,8 @@ def results(request):
 
     print("Address 1: " + adrs1 + "\nAddress 2: " + adrs2)
 
+
     result = str(res_lat) + ", " + str(res_lng)
 
-    return render(request,"midzo/result.html",{"result":result})
+
+    return render(request,"midzo/result.html",{"result":result,"API_KEY":googlemaps_API_key})
