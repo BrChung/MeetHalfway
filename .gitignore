@@ -1,5 +1,3 @@
-config.json
-
 # Byte-compiled / optimized / DLL files
 __pycache__/
 *.py[cod]
@@ -125,4 +123,8 @@ dmypy.json
 
 # Pyre type checker
 .pyre/
-Untitled.code-workspace
+
+.DS_Store
+
+midzo/googlemaps_config.json
+midzo/pyrebase_config.json

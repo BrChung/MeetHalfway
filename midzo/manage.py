@@ -1,15 +1,11 @@
 #!/usr/bin/env python
 """Django's command-line utility for administrative tasks."""
-import json
 import os
 import sys
 
-from meethalfway.services import config
+
 def main():
-    config.init()
-    print(config.data)
-    
-    os.environ.setdefault('DJANGO_SETTINGS_MODULE', 'meethalfway.settings')
+    os.environ.setdefault('DJANGO_SETTINGS_MODULE', 'midzo.settings')
     try:
         from django.core.management import execute_from_command_line
     except ImportError as exc:

@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Welcome</title>
+    <style>
+        div{
+        position : absolute;
+        right : 10px;
+        top : 5px
+        }
+    </style>
+</head>
+    <body>
+        <div>
+            <button type="button" onclick="location.href='{% url 'logout' %}'">Logout</button>
+        </div>
+        Welcome {{e}}
+        <br><br>
+        <form action="/results/" method="post">
+            {% csrf_token %}
+            Location 1:
+            <input type="text" name="loc1"><br><br>
+            Location 2:
+            <input type="text" name="loc2"><br><br>
+            <input type="submit" value="Find">
+        </form>
+    </body>
+</html>
