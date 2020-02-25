@@ -98,5 +98,6 @@ def results(request):
 
     result = str(res_lat) + ", " + str(res_lng)
 
+    print(result)
 
     return render(request,"midzo/result.html",{"result":result,"API_KEY":googlemaps_API_key})
