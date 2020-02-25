@@ -1,6 +1,0 @@
-1.
-source virtual-env/bin/activate
-2.
-cd midzo
-3.
-python manage.py runserver
