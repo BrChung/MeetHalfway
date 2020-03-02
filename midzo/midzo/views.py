@@ -44,7 +44,7 @@ gmaps = googlemaps.Client(key=googlemaps_API_key)
 print("Google Maps Integration ... OK")
 
 def home(request):
-    return HttpResponse("Hello, world.")
+    return render(request, "midzo/index.html")
 
 def login(request):
     if request.method == 'POST':
@@ -139,5 +139,4 @@ def inputDestination(request):
         
         print(localId)
     except:
-        message = "User logged out, please log in again"
-        return render(request,"midzo/login.html",{"messg":message})
+        return redirect('/login/')
