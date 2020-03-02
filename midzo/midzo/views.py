@@ -1,23 +1,33 @@
+import sys
+
 #Django
 from django.shortcuts import render
 from django.contrib import auth
 from django.http import HttpResponse
 
-#Pyrebase
+#Pyrebase https://github.com/thisbejim/Pyrebase
 import pyrebase
 
-#Google Maps
+#Google Maps https://github.com/googlemaps/google-maps-services-python
+#https://developers.google.com/maps/documentation/geocoding/start
 import googlemaps
 from datetime import datetime
 
 #JSON
 import json
 
-with open ('pyrebase_config.json') as json_file:
-    pyrebase_config = json.load(json_file)
+#Geohash 2 https://github.com/dbarthe/geohash/
+# https://www.movable-type.co.uk/scripts/geohash.html
+import geohash2
 
-with open('googlemaps_config.json') as json_file:
-    googlemaps_config = json.load(json_file)
+try:
+    with open ('pyrebase_config.json') as json_file:
+        pyrebase_config = json.load(json_file)
+
+    with open('googlemaps_config.json') as json_file:
+        googlemaps_config = json.load(json_file)
+except:
+    sys.exit("Error! Configuration files not found!")
 
 googlemaps_API_key = googlemaps_config['apiKey']
 
@@ -45,11 +55,14 @@ def postlogin(request):
         message = "The email address or password you entered is incorrect."
         return render(request,"midzo/login.html",{"messg":message})
     session_id = user['idToken']
-    request.session['uid'] = str(session_id)
+    request.session['idToken'] = str(session_id)
     return render(request, "midzo/welcome.html",{"e":email})
 
 def logout(request):
-    auth.logout(request)
+    try:
+        del request.session['idToken']
+    except:
+        pass
     return render(request,'midzo/login.html')
 
 def signup(request):
@@ -101,3 +114,15 @@ def results(request):
     print(result)
 
     return render(request,"midzo/result.html",{"result":result,"API_KEY":googlemaps_API_key})
+
+
+def inputDestination(request):
+    try:
+        idToken = request.session['idToken']
+        tempUser = firebase_auth.get_account_info(idToken)
+        localId = tempUser['users'][0]['localId']
+        
+        print(localId)
+    except:
+        message = "User logged out, please log in again"
+        return render(request,"midzo/login.html",{"messg":message})
