@@ -11,16 +11,9 @@
 
 </head>
     <body>
-        <form action="/postsignup/" method="post">
+        <form action="/signup/" method="post">
             {% csrf_token %}
-            First Name:
-            <input type="text" name="fname"><br><br>
-            Last Name:
-            <input type="text" name="lname"><br><br>
-            Email:
-            <input type="email" name="email"><br><br>
-            Password:
-            <input type="password" name="pass"><br><br>
+            {{ form }}
             <input type="submit" value="Sign Up">
         </form>
     </body>

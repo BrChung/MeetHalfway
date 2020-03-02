@@ -1,9 +1,12 @@
 import sys
 
 #Django
-from django.shortcuts import render
+from django.shortcuts import render, redirect
 from django.contrib import auth
 from django.http import HttpResponse
+
+#Django Forms
+from .forms import LoginForm, SignUpForm
 
 #Pyrebase https://github.com/thisbejim/Pyrebase
 import pyrebase
@@ -44,52 +47,64 @@ def home(request):
     return HttpResponse("Hello, world.")
 
 def login(request):
-    return render(request, "midzo/login.html")
+    if request.method == 'POST':
+        form = LoginForm(request.POST)
+        if form.is_valid():
+            email = form.cleaned_data['email']
+            password = form.cleaned_data['password']
+            try:
+                user = firebase_auth.sign_in_with_email_and_password(email, password)
+            except:
+                message = "The email address or password you entered is incorrect."
+                return render(request,"midzo/login.html",{"messg":message, 'form': form})
+            session_id = user['idToken']
+            request.session['idToken'] = str(session_id)
+            return render(request, "midzo/welcome.html",{"e":email})
+    else:
+        form = LoginForm()
 
-def postlogin(request):
-    email = request.POST.get('email')
-    password = request.POST.get("pass")
-    try:
-        user = firebase_auth.sign_in_with_email_and_password(email,password)
-    except:
-        message = "The email address or password you entered is incorrect."
-        return render(request,"midzo/login.html",{"messg":message})
-    session_id = user['idToken']
-    request.session['idToken'] = str(session_id)
-    return render(request, "midzo/welcome.html",{"e":email})
+    return render(request, "midzo/login.html", {'form': form})
+
+def signup(request):
+    if request.method == 'POST':
+        form = SignUpForm(request.POST)
+        if form.is_valid():
+            firstName = request.POST.get('firstName')
+            lastName = request.POST.get('lastName')
+            email = request.POST.get('email')
+            password = request.POST.get('password')
+            verifiedPassword = request.POST.get('verifiedPassword')
+            message = None
+
+            if(len(password) < 6):
+                message = "Password must be at least 6 characters in length"
+            elif(password != verifiedPassword):
+                message = "Passwords do not match!"
+            
+            if message is None:
+                try:
+                    user = firebase_auth.create_user_with_email_and_password(email,password)
+                    uid = user['localId']
+                    data = {"firstName":firstName,"lastName":lastName,"status":"1"}
+                    database.child("users").child(uid).set(data)
+                except:
+                    message = "Unable to create account try again"
+                    return render(request,"midzo/signup.html",{"messg":message, 'form': form})
+            else:
+                return render(request,"midzo/signup.html",{"messg":message, 'form': form})
+
+            return redirect('/login/')
+    else:
+        form = SignUpForm()
+    return render(request,"midzo/signup.html", {'form': form})
 
 def logout(request):
     try:
         del request.session['idToken']
     except:
         pass
-    return render(request,'midzo/login.html')
-
-def signup(request):
-    return render(request,"midzo/signup.html")
-
-def postsignup(request):
-
-    firstname = request.POST.get('fname')
-    lastname = request.POST.get('lname')
-    email = request.POST.get('email')
-    password = request.POST.get('pass')
-    message = None
-
-    if(len(password) < 6):
-        message = "Password must be at least 6 characters in length"
-
-    try:
-        user = firebase_auth.create_user_with_email_and_password(email,password)
-        uid = user['localId']
-        data = {"firstname":firstname,"lastname":lastname,"status":"1"}
-        database.child("users").child(uid).set(data)
-    except:
-        if message is None:
-            message = "Unable to create account try again"
-        return render(request,"midzo/signup.html",{"messg":message})
-
-    return render(request,"midzo/login.html")
+    form = LoginForm()
+    return render(request,'midzo/login.html', {'form': form})
 
 def results(request):
     location1 = request.POST.get('loc1')

@@ -11,12 +11,9 @@
     <title>Login</title>
 </head>
     <body>
-        <form action="/postlogin/" method="post">
+        <form action="/login/" method="post">
             {% csrf_token %}
-            Email:
-            <input type="email" name="email"><br><br>
-            Password:
-            <input type="password" name="pass"><br><br>
+            {{ form }}
             <input type="submit" value="Login">
             <button type="button" onclick="location.href='{% url 'signup' %}'">Sign Up</button>
         </form>
