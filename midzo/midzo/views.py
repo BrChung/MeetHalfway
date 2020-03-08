@@ -44,7 +44,8 @@ gmaps = googlemaps.Client(key=googlemaps_API_key)
 print("Google Maps Integration ... OK")
 
 def home(request):
-    return render(request, "midzo/index.html")
+    # return render(request, "midzo/index.html")
+    return render(request, "midzo/home.html")
 
 def login(request):
     if request.method == 'POST':
@@ -59,7 +60,7 @@ def login(request):
                 return render(request,"midzo/login.html",{"messg":message, 'form': form})
             session_id = user['idToken']
             request.session['idToken'] = str(session_id)
-            return render(request, "midzo/welcome.html",{"e":email})
+            return render(request, "midzo/home.html",{"e":email})
     else:
         form = LoginForm()
 

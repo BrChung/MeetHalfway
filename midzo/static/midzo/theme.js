@@ -17,3 +17,19 @@ const themeMap = {
   }
   
   document.getElementById('themeButton').onclick = toggleTheme;
+
+  /* Toggle between adding and removing the "responsive" class to topnav when the user clicks on the icon */
+function shortenMenu() {
+  var x = document.getElementById("myTopnav");
+  if (x.className === "topnav") {
+    x.className += " responsive";
+  } else {
+    x.className = "topnav";
+  }
+  changeMenuButton();
+} 
+
+function changeMenuButton() {
+  var x = document.getElementById("mButton");
+  x.classList.toggle("change");
+} 

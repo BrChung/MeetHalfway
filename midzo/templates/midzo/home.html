@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    {% load static %}
+    <script defer src="{% static 'midzo/theme.js' %}"></script>
+    {% load static %}
+    <link rel="stylesheet" href="{% static 'midzo/style.css' %}" type="text/css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+    <link
+    href="https://fonts.googleapis.com/css?family=Open+Sans:300,400,700&display=swap"
+    rel="stylesheet"
+  />
+    <meta charset="UTF-8">
+    <title>Midzo</title>
+
+    <div class="topnav" id ="myTopnav">
+        <a href="{% url 'home' %}" class="active">Midzo</a>
+        <a href="{% url 'login' %}">Login</a>
+        <a href="{% url 'signup' %}">Sign Up</a>
+        <a href="">About Us</a>
+        <a href="javascript:void(0);" class="icon" onclick="shortenMenu()">    
+            <i class="menuButton" id="mButton">
+                <div class="bar1"></div>
+                <div class="bar2"></div>
+                <div class="bar3"></div>      
+            </i>
+        </a>
+    </div>
+</head>
+    <body>
+        Welcome {{e}}
+        <br><br>
+        <form action="/results/" method="post">
+            {% csrf_token %}
+            Location 1:
+            <input type="text" name="loc1"><br><br>
+            Location 2:
+            <input type="text" name="loc2"><br><br>
+            <input type="submit" value="Find">
+        </form>
+    </body>
+</html>
