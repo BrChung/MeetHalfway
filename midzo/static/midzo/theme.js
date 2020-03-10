@@ -33,3 +33,11 @@ function changeMenuButton() {
   var x = document.getElementById("mButton");
   x.classList.toggle("change");
 } 
+
+function openLoginForm() {
+  document.getElementById("loginForm").style.display = "block";
+}
+
+function closeLoginForm() {
+  document.getElementById("loginForm").style.display = "none";
+}
