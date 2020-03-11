@@ -13,7 +13,7 @@ export class YelpapiService {
   sendHttpRequest() {
     return this.http.get<JSON>(this.configUrl, {
       headers
-    }); //{params:params1, headers:headers1}
+    }); //{params:params1, headers:headers1}. need fix this
 
   getYelpInfo(search:string): Observable<any> {
     let params1 = new HttpParams().set('term',"Coffee").set('latitude',33.882695).set('longitude',-117.886819)
