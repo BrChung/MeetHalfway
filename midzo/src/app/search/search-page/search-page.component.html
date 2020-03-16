@@ -1,0 +1,11 @@
+<form [formGroup]="myForm" (ngSubmit)="submitHandler()">
+
+    <h4>Location 1</h4>
+    <input type="text" formControlName="location1">
+    <h4>Location 2</h4>
+    <input type="text" formControlName="location2">
+    <div class="submit">
+        <button mat-raised-button type="submit" [disabled]="myForm.invalid" color="primary">Let's Go</button>
+    </div>
+
+</form>

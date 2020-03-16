@@ -1,0 +1,23 @@
+mat-form-field {
+  width: 100%;
+  margin-bottom: 16px;
+}
+:host {
+  text-align: center;
+}
+.submit {
+  padding-top: 2em;
+}
+input {
+  height: 2em;
+  width: 40em;
+}
+input div.mat-form-field-infix {
+  padding: 0.3em 0;
+}
+input div.mat-form-field-infix input.mat-input-element {
+  vertical-align: top;
+}
+div.mat-form-field-wrapper {
+  padding-bottom: 1.15em;
+}

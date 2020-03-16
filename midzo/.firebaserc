@@ -1,0 +1,11 @@
+{
+  "targets": {
+    "project-midzo": {
+      "hosting": {
+        "midzo": [
+          "project-midzo"
+        ]
+      }
+    }
+  }
+}
