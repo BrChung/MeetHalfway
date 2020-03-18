@@ -1,11 +1,12 @@
 <agm-map [latitude]="this.latitude" [longitude]="this.longitude" [zoom]="12">
-    <agm-marker *ngFor = "let point of (points | async); index as i; trackBy: trackByFn;" [latitude]="point.position.geopoint.latitude" [longitude]="point.position.geopoint.longitude" [label]="{color: 'white', text: (i + 1).toString()+'\u200b'}">
+    <agm-marker *ngFor = "let point of (points | async); index as i; trackBy: trackByFn;"
+      [latitude]="point.position.geopoint.latitude"
+      [longitude]="point.position.geopoint.longitude"
+      [label]="{color: 'white', text: (i + 1).toString()+'\u200b'}">
         <agm-info-window>
             {{ i + 1 }}
-            <h1>This point is {{ point.hitMetadata.distance }} kilometers from the center</h1>
-            <p>{{ point | json }}</p>
+            <h2> {{ point.name }} is {{ point.hitMetadata.distance.toPrecision(3) }} kilometers from the center</h2>
+            <p> {{ point | json }} </p>
         </agm-info-window>
-
-
     </agm-marker>
 </agm-map>
