@@ -1,0 +1,58 @@
+
+<!---Template originally from James, edited to fit a Midzo profile for a temporary html webpage-->
+<!doctype html>
+<html>
+    <head>
+        <meta charset="utf-8">
+        <title>Midzo Profile</title>
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/4.4.1/css/bootstrap-reboot.min.css">
+    </head>
+    <body class="container">
+        <header>
+        <h1>Profile editor</h1>
+        </header>
+        <section>
+            <div class="panel panel-default">
+                <div class="panel-body">
+                    <form id="profileForm"> <!----form data-coffee-order="form"-->
+                        <div class="form-group">
+                            <label for="nameInput">Name</label>
+                            <input class="form-control" name="name" id="name">
+                        </div>
+                        <div class="form-group">
+                            <label for="emailInput">Email</label>
+                            <input class="form-control" type="email" name="email"
+                                id="email" value="" placeholder="dr@who.com">
+                        </div>
+                        <div class="form-group">
+                            <label for="gender">Gender</label>
+                            <select id="gender" class="form-control" name="gender">
+                                <option value="">None</option>
+                                <option value="Male">Male</option>
+                                <option value="Female">Female</option>
+                                <option value="Other">Other</option>
+                            </select>   
+                        </div>
+                        <div class="form-group">
+                            <label for="city">City</label>
+                            <input class="form-control" name="city" id="city">
+                        </div>
+                        <div class="form-group">
+                            <label for="foodPref">Favorite foods</label>
+                            <input class="form-control" name="food" id="food">
+                        </div>
+                        <div class="form-group">
+                            <label for="foodPref">Favorite activities</label>
+                            <input class="form-control" name="activities" id="activities">
+                        </div>
+                        <button type="submit" class="btn btn-default">Submit</button>
+                        <button type="reset" class="btn btn-default">Reset</button>
+                    </form>
+                </div>
+            </div>
+        </section>
+        
+        <script src="https://www.gstatic.com/firebasejs/7.12.0/firebase.js"></script>
+        <script src="main.js"></script>
+    </body>
+</html>
