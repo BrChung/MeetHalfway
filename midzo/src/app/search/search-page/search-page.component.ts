@@ -46,6 +46,6 @@ export class SearchPageComponent implements OnInit {
     const lng_mid = (lng_loc1 + lng_loc2) / 2;
     console.log(lat_mid)
     console.log(lng_mid)
-    this.router.navigate(['/search/result'], { queryParams: { lat: lat_mid, lng: lng_mid } });
+    this.router.navigate(['/result'], { queryParams: { lat: lat_mid, lng: lng_mid } });
   }
 }
