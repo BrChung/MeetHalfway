@@ -1,11 +1,11 @@
 <main>
     <div *ngIf="!(afAuth.authState | async)">
-      <h1>Login</h1>
   
+      <br><br>
       <button mat-raised-button appGoogleSignin>
         <img src="/assets/google-logo.svg" /> Login with Google
       </button>
-  
+      <br><br>
       <h5>OR</h5>
   
       <app-email-login></app-email-login>
