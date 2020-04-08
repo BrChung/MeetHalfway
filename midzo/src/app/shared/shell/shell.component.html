@@ -10,7 +10,7 @@
       <mat-nav-list>
        
         <a mat-list-item routerLink="/" (click)="drawer.close()">Home</a>
-        <a mat-list-item routerLink="/search" (click)="drawer.close()">Search</a>
+        <!-- <a mat-list-item routerLink="/search" (click)="drawer.close()">Search</a> -->
         <a mat-list-item routerLink="/login" (click)="drawer.close()">Login</a>
       </mat-nav-list>
     </mat-sidenav>
@@ -19,37 +19,27 @@
     <!-- TOP TOOLBAR-->
   
       <mat-toolbar>
-        <button 
-          type="button"
-          aria-label="Toggle sidenav"
-          mat-icon-button
-          (click)="drawer.toggle()"
-          *ngIf="isHandset$ | async">
-  
-  
-          <mat-icon aria-label="Side nav toggle icon">menu</mat-icon>
-        </button>
+
         <span class="logo" routerLink="/">MIDZO</span>
   
         <span class="fill-space"></span>
         <div *ngIf="!(isHandset$ | async)">  
-          <a mat-button routerLink="/search">Search</a>
+          <!-- <a mat-button routerLink="/search">Search</a> -->
           <a mat-button routerLink="/login">Login</a>
   
         </div>
   
         <!-- DROPDOWN MENU -->
   
-        <button mat-icon-button [matMenuTriggerFor]="menu" aria-label="Example icon-button with a menu">
+        <button mat-icon-button [matMenuTriggerFor]="menu" aria-label="Example icon-button with a menu"
+              *ngIf="isHandset$ | async">
           <mat-icon>more_vert</mat-icon>
         </button>
         
         <mat-menu #menu="matMenu">
-          <a mat-menu-item href="https://google.com">
-            <i>👤</i>
-            <span>User</span>
-          </a>
+          <a mat-menu-item routerLink="/login" (click)="drawer.close()">Login</a>
         </mat-menu>
+
       </mat-toolbar>
   
       <!-- TRANSCLUSION -->
