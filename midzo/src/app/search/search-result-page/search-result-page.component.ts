@@ -17,8 +17,16 @@ export class SearchResultPageComponent implements OnInit {
   radius = new BehaviorSubject(7);
   latitude: number;
   longitude: number;
+  previousWindow;
 
   constructor(private route:ActivatedRoute, private geofirex: GeofirexService) { }
+
+  clickedMarker(infoWindow){
+    if(this.previousWindow){
+      this.previousWindow.close();
+    }
+    this.previousWindow = infoWindow;
+  }
 
   ngOnInit(): void {
     // this.latitude = Number(this.route.snapshot.params['latitude']); //34.0373
