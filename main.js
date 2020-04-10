@@ -31,11 +31,15 @@ function submitForm(e)
     var city = getInput('city');
     var food = getInput('food');
     var activities = getInput('activities');
+    var Meeting = getCheckbox('Meeting'); //
+    var Dates = getCheckbox('Dates');
+    var Celebration = getCheckbox('Celebration');
+    var bio = getInput('bio');
 
     console.log(name);
 
     //save the messages to put in database
-    saveMessage(name, email, gender, city, food, activities);
+    saveMessage(name, email, gender, city, food, activities, Meeting, Dates, Celebration, bio);
     
 }
 
@@ -46,8 +50,13 @@ function getInput(id)
     return document.getElementById(id).value;
 }
 
+function getCheckbox(id)
+{
+    return document.getElementById(id).checked;
+}
+
 // save messages to firebase
-function saveMessage(name, email, gender, city, food, activities)
+function saveMessage(name, email, gender, city, food, activities, Meeting, Dates, Celebration, bio)
 {
     var newMessageRef = messagesRef.push();
     newMessageRef.set({
@@ -56,6 +65,10 @@ function saveMessage(name, email, gender, city, food, activities)
         gender: gender,
         city: city,
         food: food,
-        activities: activities
+        activities: activities,
+        Meeting: Meeting,
+        Dates: Dates,
+        Celebration: Celebration,
+        bio:bio
     })
 }
