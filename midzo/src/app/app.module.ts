@@ -16,12 +16,14 @@ import { GeofirexService } from './services/geofirex.service';
 import { GeocodingService } from './services/geocoding.service';
 
 import { HttpClientModule } from '@angular/common/http';
+import { ProfilePageComponent } from './profile-page/profile-page.component';
 
 
 @NgModule({
   declarations: [
     AppComponent,
-    HomePageComponent
+    HomePageComponent,
+    ProfilePageComponent
   ],
   imports: [
     BrowserModule,
