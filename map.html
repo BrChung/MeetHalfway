@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+
+  <!-- Styles -->
+  <link href="https://fonts.googleapis.com/css?family=Open+Sans:300,400,700&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+  <link rel="stylesheet" href="./assets/css/style.css">
+  <title>Home</title>
+</head>
+
+<body>
+  <div class="topnav" id="myTopnav">
+    <a href="{% url 'home' %}" class="active">MIDZO</a>
+    <a href="#" class="login-btn" onclick="openLoginForm()">Login</a>
+    <a href="{% url 'signup' %}">Sign Up</a>
+    <a href="">About Us</a>
+    <a href="#" class="icon" onclick="shortenMenu()">
+      <i class="menuButton" id="mButton">
+        <div class="bar1"></div>
+        <div class="bar2"></div>
+        <div class="bar3"></div>
+      </i>
+    </a>
+  </div>
+
+  <div class="locations-view" style="width: 66.67%; float: left; background-color: white;">
+    <form action="/" class="map-container" method="post">
+      <label for="psw">
+        <p><strong>Add Location</strong></p>
+      </label>
+      <input style="width: 80%; display: inline" type="text" placeholder="123 John Ln." name="location" id="location"
+        required>
+      <button style="width: 10%" type="submit" class="btn">Add</button>
+    </form>
+  </div>
+
+  <div class="map-overlay right">
+    <div class="locations-container">
+      <h3>Locations</h3>
+      <span style="font-weight: bold; color: green; font-size: 1.4em;">1.</span> 1234 John Ln. <a style="float: right"
+        href="#">Remove</a><br />
+      <span style="font-weight: bold; color: green; font-size: 1.4em;">2.</span>Disneyland <a style="float: right"
+        href="#">Remove</a><br />
+      <span style="font-weight: bold; color: green; font-size: 1.4em;">3.</span>Paris <a style="float: right"
+        href="#">Remove</a>
+    </div>
+  </div>
+
+  <iframe style="float: right" width="33.33%" height="94.57%" frameborder="0" style="border:0"
+    src="https://www.google.com/maps/embed/v1/search?key=AIzaSyDzJBkmCP_j8d2fx80E3m7TIXh7mZO9auI&q=record+stores+in+Seattle"
+    allowfullscreen>
+  </iframe>
+
+  <div class="login-popup" id="loginForm">
+    <form action="/login/" class="loginForm-container" method="post">
+      <h1>Login</h1>
+      <label for="email"><b>Email</b></label>
+      <input type="email" placeholder="Enter Email" name="email" id="email" required>
+
+      <label for="psw"><b>Password</b></label>
+      <input type="password" placeholder="Enter Password" name="psw" id="psw" required>
+
+      <button type="submit" class="btn">Login</button>
+      <button type="submit" class="btn-cancel" onClick="closeLoginForm()">Cancel</button>
+    </form>
+  </div>
+  <script src="./assets/js/app.js"></script>
+
+</body>
+
+</html>
