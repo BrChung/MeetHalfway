@@ -432,8 +432,8 @@ input[type=submit]:hover {
 }
 
 .map-container {
-  max-width: 300px;
-  padding: 25px;
+  max-width: 100%;
+  padding: 5em;
   background-color: white;
 }
 
