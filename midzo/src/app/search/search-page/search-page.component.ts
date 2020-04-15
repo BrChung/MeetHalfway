@@ -22,7 +22,6 @@ export class SearchPageComponent implements OnInit {
       location2: [[],[Validators.required]]
     })
   }
-
   
   get location1(){
     return this.myForm.get('location1');
@@ -49,3 +48,4 @@ export class SearchPageComponent implements OnInit {
     this.router.navigate(['/result'], { queryParams: { lat: lat_mid, lng: lng_mid } });
   }
 }
+

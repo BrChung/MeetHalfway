@@ -11,9 +11,14 @@
     padding-top: 2em;
 }
 
+
 input {    
+    font-size: small;
     height: 2em;     
-    width: 40em;         
+    width: 40em;
+    border-radius: 0.5em;  
+    padding-left: 10px;
+    border: 1px solid black;   
     div.mat-form-field-infix {
       padding: .3em 0;
       input.mat-input-element {
@@ -54,7 +59,35 @@ html {
 	color: #fff;
 }
 
-.button:disabled {
+button {
+  width: 80px;
+  margin-right: 10px;
+}
+
+/* Drop down menus */
+select {
+  font-size: small;
+  margin-left: 5px;
+  margin-right: 20px;
+  background-color: transparent;
+  color: white;
+  border: 1px;
+  height: 20px;
+  width: 130px;
+  border-bottom: 1px solid;
+}
+
+.select-selected:after {
+  position: absolute;
+  content: "";
+  top: 14px;
+  right: 10px;
+  width: 0;
+  height: 0;
+  border: 6px solid transparent;
+  border-color: #fff transparent transparent transparent;
+}
+
+.select-selected {
   background-color: white;
-  color: gray;
 }
