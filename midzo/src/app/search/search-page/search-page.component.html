@@ -2,12 +2,29 @@
     <div class="hero-text">
         <h1>Long Distance Meetings</h1>
         <p>Spend less time planning and more time together</p>
+        <br>
         <form [formGroup]="myForm" (ngSubmit)="submitHandler()">
-            <input type="text" formControlName="location1" placeholder="Enter Location 1...">
+                <!-- <label>Locations:</label> -->
+                <select matNativeControl required>
+                    <option value="prompt">Locations:</option>
+                    <option value="2">2</option>
+                    <option value="3">3</option>
+                    <option value="4">4</option>
+                </select>
+                <!-- <label>Meeting Type:</label> -->
+                <select matNativeControl required>
+                    <option value="prompt">Meeting Type:</option>
+                    <option value="date">Date</option>
+                    <option value="study">Study</option>
+                    <option value="business">Business</option>
+                </select>
+                <br><br>
+            <input matInput type="text" formControlName="location1" placeholder="Enter Location 1...">    
             <br><br>
-            <input type="text" formControlName="location2" placeholder="Enter Location 2...">
+            <input matInput type="text" formControlName="location2" placeholder="Enter Location 2...">
             <div class="submit">
-                <button mat-raised-button type="submit" [disabled]="myForm.invalid">Search</button>
+                <button mat-raised-button type="submit">Search</button> 
+                <button mat-raised-button type="reset">Clear</button>
             </div>
         </form>
     </div>
