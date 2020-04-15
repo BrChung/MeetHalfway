@@ -3,7 +3,7 @@ import { Observable , BehaviorSubject } from 'rxjs';
 import { switchMap } from 'rxjs/operators';
 import { GeofirexService } from '../../services/geofirex.service';
 import * as firebase from 'firebase/app';
-import { ActivatedRoute } from '@angular/router'
+import { ActivatedRoute } from '@angular/router';
 
 @Component({
   selector: 'app-search-result-page',
@@ -12,11 +12,14 @@ import { ActivatedRoute } from '@angular/router'
 })
 export class SearchResultPageComponent implements OnInit {
 
+  location: Location
   points: Observable<any>
   geo: any;
   radius = new BehaviorSubject(7);
   latitude: number;
   longitude: number;
+  // curr_lat: number;
+  // curr_lng: number;
   previousWindow;
 
   constructor(private route:ActivatedRoute, private geofirex: GeofirexService) { }
@@ -29,14 +32,27 @@ export class SearchResultPageComponent implements OnInit {
   }
 
   ngOnInit(): void {
-    // this.latitude = Number(this.route.snapshot.params['latitude']); //34.0373
-    // this.longitude = Number(this.route.snapshot.params['longitude']); //-117.8785
     this.latitude = Number(this.route.snapshot.queryParamMap.get("lat"))
     this.longitude = Number(this.route.snapshot.queryParamMap.get("lng"))
     this.route.queryParamMap.subscribe(queryParams => {
       this.latitude = Number(queryParams.get("lat"))
       this.longitude = Number(queryParams.get("lng"))
     })
+
+    this.location = {
+      latitude: this.latitude,
+      longitude: this.longitude,
+      marker: [
+        { 
+          lat: this.latitude,
+          lng: this.longitude,
+          label: "center"
+        } 
+      ]
+    }
+
+    // this.getUserLocation()
+
     this.geo = this.geofirex.getGeo();
     const center = this.geo.point(this.latitude, this.longitude);
     const field = 'position'
@@ -49,8 +65,17 @@ export class SearchResultPageComponent implements OnInit {
         return this.geo.query(destinations).within(center, r, field);
       })
     )
-
   }
+
+  /* if ever needed to get user's current location */
+  // private getUserLocation(){
+  //   if(navigator.geolocation){
+  //     navigator.geolocation.getCurrentPosition(position => {
+  //       this.curr_lat = position.coords.latitude;
+  //       this.curr_lng = position.coords.longitude;
+  //     })
+  //   }
+  // }
 
   update(v){
     this.radius.next(v);
@@ -59,5 +84,16 @@ export class SearchResultPageComponent implements OnInit {
   trackByFn(_, doc){
     return doc.id;
   }
+}
 
+interface Marker {
+  lat: number;
+  lng: number;
+  label: string;
+}
+
+interface Location {
+  latitude: number;
+  longitude: number;
+  marker: Array<Marker>;
 }
