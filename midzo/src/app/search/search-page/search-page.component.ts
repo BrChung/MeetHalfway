@@ -19,6 +19,7 @@ export class SearchPageComponent implements OnInit {
   myForm: FormGroup;
 
   categories: Category[] = [
+    { value: "n/a", viewValue: "Any" },
     { value: "date", viewValue: "Date" },
     { value: "study", viewValue: "Study" },
     { value: "business", viewValue: "Business" },
@@ -55,6 +56,13 @@ export class SearchPageComponent implements OnInit {
     const formValue = this.myForm.value;
     const location1 = formValue["location1"];
     const location2 = formValue["location2"];
+    var meetingType = [];
+    if (
+      formValue["meetingType"] !== "n/a" &&
+      formValue["meetingType"] !== null
+    ) {
+      meetingType.push(formValue["meetingType"]);
+    }
     const geoData_loc1 = await this.geocodingService.getGeocodeAsync(location1);
     const geoData_loc2 = await this.geocodingService.getGeocodeAsync(location2);
     const lat_loc1 = geoData_loc1["results"][0]["geometry"]["location"]["lat"];
@@ -63,10 +71,8 @@ export class SearchPageComponent implements OnInit {
     const lng_loc2 = geoData_loc2["results"][0]["geometry"]["location"]["lng"];
     const lat_mid = (lat_loc1 + lat_loc2) / 2;
     const lng_mid = (lng_loc1 + lng_loc2) / 2;
-    console.log(lat_mid);
-    console.log(lng_mid);
     this.router.navigate(["/result"], {
-      queryParams: { lat: lat_mid, lng: lng_mid, tag: ["food", "date"] },
+      queryParams: { lat: lat_mid, lng: lng_mid, tag: meetingType },
     });
   }
 }

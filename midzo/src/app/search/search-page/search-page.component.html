@@ -26,10 +26,10 @@
         <div class="meeting-option">
           <mat-form-field>
             <mat-label>Meeting Type:</mat-label>
-            <select matNativeControl>
+            <select matNativeControl formControlName="meetingType">
               <option
                 *ngFor="let category of categories"
-                value="category.value"
+                [ngValue]="category.value"
               >
                 {{ category.viewValue }}
               </option>
