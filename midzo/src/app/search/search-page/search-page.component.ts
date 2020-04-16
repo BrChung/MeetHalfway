@@ -57,7 +57,6 @@ export class SearchPageComponent implements OnInit {
     const location1 = formValue["location1"];
     const location2 = formValue["location2"];
     var meetingType = [];
-    console.log(formValue["meetingType"]);
     if (
       formValue["meetingType"] !== "n/a" &&
       formValue["meetingType"] !== null
