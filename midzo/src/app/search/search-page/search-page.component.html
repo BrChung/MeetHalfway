@@ -1,31 +1,60 @@
 <div class="hero-image">
-    <div class="hero-text">
-        <h1>Long Distance Meetings</h1>
-        <p>Spend less time planning and more time together</p>
-        <br>
-        <form [formGroup]="myForm" (ngSubmit)="submitHandler()">
-                <!-- <label>Locations:</label> -->
-                <select>
-                    <option value="prompt">Locations:</option>
-                    <option value="2">2</option>
-                    <option value="3">3</option>
-                    <option value="4">4</option>
-                </select>
-                <!-- <label>Meeting Type:</label> -->
-                <select>
+  <div class="hero-text">
+    <h1>Long Distance Meetings</h1>
+    <p>Spend less time planning and more time together</p>
+    <br />
+    <form [formGroup]="myForm" (ngSubmit)="submitHandler()">
+      <div class="select-options">
+        <div class="location-option">
+          <mat-form-field>
+            <mat-label>Locations:</mat-label>
+            <select matNativeControl required>
+              <option value="2">2</option>
+              <option value="3">3</option>
+              <option value="4">4</option>
+            </select>
+          </mat-form-field>
+        </div>
+        <!-- <label>Meeting Type:</label> 
+                <select matNativeControl required>
                     <option value="prompt">Meeting Type:</option>
                     <option value="date">Date</option>
                     <option value="study">Study</option>
                     <option value="business">Business</option>
                 </select>
-                <br><br>
-            <input matInput type="text" formControlName="location1" placeholder="Enter Location 1...">    
-            <br><br>
-            <input matInput type="text" formControlName="location2" placeholder="Enter Location 2...">
-            <div class="submit">
-                <button mat-raised-button type="submit">Search</button> 
-                <button mat-raised-button type="reset">Clear</button>
-            </div>
-        </form>
-    </div>
+                -->
+        <div class="meeting-option">
+          <mat-form-field>
+            <mat-label>Meeting Type:</mat-label>
+            <select matNativeControl>
+              <option
+                *ngFor="let category of categories"
+                value="category.value"
+              >
+                {{ category.viewValue }}
+              </option>
+            </select>
+          </mat-form-field>
+        </div>
+      </div>
+      <br /><br />
+      <input
+        matInput
+        type="text"
+        formControlName="location1"
+        placeholder="Enter Location 1..."
+      />
+      <br /><br />
+      <input
+        matInput
+        type="text"
+        formControlName="location2"
+        placeholder="Enter Location 2..."
+      />
+      <div class="submit">
+        <button mat-raised-button type="submit">Search</button>
+        <button mat-raised-button type="reset">Clear</button>
+      </div>
+    </form>
+  </div>
 </div>

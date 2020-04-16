@@ -1,66 +1,80 @@
-  mat-form-field {
-      width: 100%;
-      margin-bottom: 16px;
+mat-form-field {
+  width: 100%;
+  margin-bottom: 16px;
 }
 
 :host {
-    text-align: center;
+  text-align: center;
 }
 
 .submit {
-    padding-top: 2em;
+  padding-top: 2em;
 }
 
+input {
+  font-size: small;
+  height: 2em;
+  width: 40em;
+  border-radius: 0.5em;
+  padding-left: 10px;
+  border: 1px solid black;
+  background-color: white;
+  color: black;
+  text-align: left;
 
-input {    
-    font-size: small;
-    height: 2em;     
-    width: 40em;
-    border-radius: 0.5em;  
-    padding-left: 10px;
-    border: 1px solid black;  
-    background-color: white;
-    color: black;
-    text-align: left;
-
-    div.mat-form-field-infix {
-      padding: .3em 0;
-      input.mat-input-element {
-        vertical-align: top;
-      }
+  div.mat-form-field-infix {
+    padding: 0.3em 0;
+    input.mat-input-element {
+      vertical-align: top;
     }
   }
-  div.mat-form-field-wrapper{
-    padding-bottom: 1.15em;
-  }
+}
+div.mat-form-field-wrapper {
+  padding-bottom: 1.15em;
+}
 
 /* figure this outtttttt */
 body,
 html {
-	height: 100%;
-	margin: 0;
+  height: 100%;
+  margin: 0;
 }
 
 /* Manages background image of location entry form */
 .hero-image {
-	background-image: linear-gradient(rgba(0, 0, 0, 0.5), rgba(0, 0, 0, 0.5)),
-		url("https://images.pexels.com/photos/3184192/pexels-photo-3184192.jpeg");
+  background-image: linear-gradient(rgba(0, 0, 0, 0.5), rgba(0, 0, 0, 0.5)),
+    url("https://images.pexels.com/photos/3184192/pexels-photo-3184192.jpeg");
 
-	height: 80vh;
+  height: 80vh;
 
-	background-position: center;
-	background-repeat: no-repeat;
-	background-size: cover;
-	position: relative;
+  background-position: center;
+  background-repeat: no-repeat;
+  background-size: cover;
+  position: relative;
 }
 
 .hero-text {
-	text-align: center;
-	position: absolute;
-	top: 50%;
-	left: 50%;
-	transform: translate(-50%, -50%);
-	color: #fff;
+  text-align: center;
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  color: #fff;
+}
+
+.select-options {
+  display: flex;
+  color: white;
+}
+
+.location-option {
+  margin: 2%;
+  flex-grow: 1;
+}
+
+.meeting-option {
+  margin: 2%;
+  flex-grow: 1;
 }
 
 button {
@@ -76,8 +90,8 @@ select {
   background-color: transparent;
   color: white;
   border: 1px;
-  height: 20px;
-  width: 130px;
+  height: 40px;
+  //width: 130px;
   border-bottom: 1px solid;
 }
 
