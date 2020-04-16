@@ -38,19 +38,21 @@
         </div>
       </div>
       <br /><br />
-      <input
-        matInput
-        type="text"
-        formControlName="location1"
-        placeholder="Enter Location 1..."
-      />
-      <br /><br />
-      <input
-        matInput
-        type="text"
-        formControlName="location2"
-        placeholder="Enter Location 2..."
-      />
+      <div class="search">
+        <mat-form-field>
+          <input matInput type="text" formControlName="location1" />
+          <mat-placeholder class="placeholder"
+            >Enter Location 1...</mat-placeholder
+          >
+        </mat-form-field>
+        <br /><br />
+        <mat-form-field>
+          <input matInput type="text" formControlName="location2" />
+          <mat-placeholder class="placeholder"
+            >Enter Location 2...</mat-placeholder
+          >
+        </mat-form-field>
+      </div>
       <div class="submit">
         <button mat-raised-button type="submit">Search</button>
         <button mat-raised-button type="reset">Clear</button>
