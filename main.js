@@ -24,7 +24,7 @@ function submitForm(e)
 {
     e.preventDefault();
 
-    //get values
+    //get values, make consts in ts
     var name = getInput('name');
     var email = getInput('email');
     var gender = getInput('gender');

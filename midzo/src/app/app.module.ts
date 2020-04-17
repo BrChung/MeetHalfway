@@ -18,6 +18,9 @@ import { GeocodingService } from './services/geocoding.service';
 import { HttpClientModule } from '@angular/common/http';
 import { ProfilePageComponent } from './profile-page/profile-page.component';
 
+import { ReactiveFormsModule } from '@angular/forms';
+import { FormsModule } from '@angular/forms';
+import {MatRadioModule} from'@angular/material/radio';
 
 @NgModule({
   declarations: [
@@ -33,7 +36,12 @@ import { ProfilePageComponent } from './profile-page/profile-page.component';
     AngularFireModule.initializeApp(environment.firebase),
     AngularFirestoreModule,
     AngularFireAuthModule,
-    HttpClientModule
+    HttpClientModule,
+    ReactiveFormsModule,
+ 
+    FormsModule,
+    MatRadioModule
+
   ],
   providers: [
     GeofirexService,
