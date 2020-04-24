@@ -1,5 +1,10 @@
 import { Component, OnInit } from '@angular/core';
+import { AngularFireAuth } from "@angular/fire/auth";
 import { FormBuilder, FormGroup, FormArray, FormsModule, Validators } from '@angular/forms';
+import * as firebase from 'firebase';
+import { AngularFirestore, AngularFirestoreDocument } from '@angular/fire/firestore';
+import { UserProfile } from "../models/profile";
+
 
 //only work here
 @Component({
@@ -12,8 +17,19 @@ import { FormBuilder, FormGroup, FormArray, FormsModule, Validators } from '@ang
 export class ProfilePageComponent implements OnInit {
  
   myForm: FormGroup;
+  uid;
  
-  constructor(private fb: FormBuilder) { }
+  constructor(
+    private afAuth: AngularFireAuth,
+    private afs: AngularFirestore,
+    private fb: FormBuilder) {this.afAuth.authState.subscribe(user => { //If logged in, subscribe to the user, get uid. If not, set to null
+      if(user) {
+        this.uid = user.uid;
+      } else {
+        // Empty the value when user signs out
+        this.uid = null;
+      }
+    }); }
 
   selectGender : any
   genders: string[] = ['Male', 'Female', 'Other', 'N/A'];
@@ -39,8 +55,10 @@ export class ProfilePageComponent implements OnInit {
       favoriteFoods: this.fb.array([]),
       interests: this.fb.array([])
     })
-    this.myForm.valueChanges.subscribe(console.log);
+    //this.myForm.valueChanges.subscribe(console.log);
   }
+
+ 
  
   //For food
   get foodForms() {
@@ -103,8 +121,40 @@ export class ProfilePageComponent implements OnInit {
     return this.myForm.get('activities')
   }
 
+  get career()
+  {
+    return this.myForm.get('career')
+  }
+
   get gender()
   {
     return this.selectGender
   }
+
+  updateUserProfileData() {
+
+    const formValue = this.myForm.value;
+    console.log(formValue)
+    //Sets user data to firestore on login for more accurate data
+    
+    const userRef: AngularFirestoreDocument<UserProfile> = this.afs.doc(
+      `profile/${this.uid}`
+    );
+
+    const data = {
+      uid: this.uid,
+      name: formValue["name"], 
+      email: formValue["email"],
+      city: formValue["city"], 
+      gender: formValue["gender"], 
+      career: formValue["career"],
+      favoriteFoods: formValue["favoriteFoods"],
+      interests: formValue["interests"]
+    };
+
+    return userRef.set({...data}, { merge: true });
+  }
 }
+
+// work on editing the current values. this adds values, so we need to edit them. if the profile or user id exists,
+//extract the data and edit it. put the values as the default data in the form
