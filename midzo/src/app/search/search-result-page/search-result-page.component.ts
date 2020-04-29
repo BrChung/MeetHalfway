@@ -45,7 +45,6 @@ export class SearchResultPageComponent implements OnInit {
       this.longitude = Number(queryParams.get("lng"));
       this.tags = queryParams.getAll("tag");
     });
-    console.log(this.tags);
 
     this.location = {
       latitude: this.latitude,
@@ -69,7 +68,7 @@ export class SearchResultPageComponent implements OnInit {
 
     var destinations;
 
-    if (this.tags.length === 0) {
+    if (this.tags.length === 0 || this.tags[0] === "null") {
       destinations = firebase.firestore().collection("demo-destinations");
     } else {
       destinations = firebase
