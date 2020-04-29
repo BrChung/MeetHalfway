@@ -2,58 +2,59 @@
   <!-- SIDENAV -->
 
   <mat-sidenav
-    #drawer
-    class="sidenav"
-    fixedInViewport
-    [attr.role]="(isHandset$ | async) ? 'dialog' : 'navigation'"
-    [mode]="(isHandset$ | async) ? 'over' : 'side'"
-    [opened]="false"
-  >
+      #drawer
+      class="sidenav"
+      fixedInViewport
+      [attr.role]="(isHandset$ | async) ? 'dialog' : 'navigation'"
+      [mode]="(isHandset$ | async) ? 'over' : 'side'"
+      [opened]="false">
     <mat-toolbar>Menu</mat-toolbar>
     <mat-nav-list>
       <a mat-list-item routerLink="/" (click)="drawer.close()">Home</a>
-      <!-- <a mat-list-item routerLink="/search" (click)="drawer.close()">Search</a> -->
+       <a mat-list-item routerLink="/search" (click)="drawer.close()">Search</a> 
       <a mat-list-item routerLink="/login" (click)="drawer.close()">Login</a>
     </mat-nav-list>
-  </mat-sidenav>
-  <mat-sidenav-content>
-    <!-- TOP TOOLBAR-->
+   </mat-sidenav>
 
+  <mat-sidenav-content> 
+    <!-- TOP TOOLBAR-->
     <mat-toolbar>
       <span class="logo" routerLink="/">MIDZO</span>
 
       <span class="fill-space"></span>
       <div *ngIf="!(isHandset$ | async)">
-        <!-- <a mat-button routerLink="/search">Search</a> -->
-        <a mat-button routerLink="/login" *ngIf="!(afAuth.authState | async)"
-          >Login</a
-        >
-        <a
-          mat-button
-          routerLink="/login"
-          *ngIf="afAuth.authState | async as user"
-        >
-          <img
-            class="avatar"
-            [src]="user.photoURL || 'assets/default-user.svg'"
-          />
-          Profile
+        <a mat-button routerLink="/login" 
+            *ngIf="!(afAuth.authState | async)">Login</a>
+        <a mat-button
+            routerLink="/login"
+            *ngIf="afAuth.authState | async as user">
+          <img class="avatar"
+              [src]="user.photoURL || 'assets/default-user.svg'"/>
+          {{ user.email }}
         </a>
       </div>
 
       <!-- DROPDOWN MENU -->
-
-      <button
-        mat-icon-button
-        [matMenuTriggerFor]="menu"
-        aria-label="Example icon-button with a menu"
-        *ngIf="isHandset$ | async"
-      >
-        <mat-icon>more_vert</mat-icon>
+      <button mat-icon-button
+          [matMenuTriggerFor]="menu"
+          aria-label="Example icon-button with a menu"
+          *ngIf="isHandset$ | async">
+          <mat-icon *ngIf="!(afAuth.authState | async)">more_vert</mat-icon>
+          <img class="avatar"
+              *ngIf="afAuth.authState | async as user"
+              [src]="user.photoURL"/>
       </button>
 
       <mat-menu #menu="matMenu">
-        <a mat-menu-item routerLink="/login" (click)="drawer.close()">Login</a>
+        <button mat-menu-item routerLink="/login" 
+            (click)="drawer.close()"
+            *ngIf="!(afAuth.authState | async)">Login</button>
+        <button mat-menu-item routerLink="/login"
+            *ngIf="afAuth.authState | async as user">
+            <img class="mm-avatar"
+                [src]="user.photoURL"/>
+            {{ user.email }}
+      </button>
       </mat-menu>
     </mat-toolbar>
 
