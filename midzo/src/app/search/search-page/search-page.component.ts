@@ -9,6 +9,7 @@ import {
 import { GeocodingService } from "../../services/geocoding.service";
 import { Router } from "@angular/router";
 import { Category } from "../../models/category";
+import { RtlScrollAxisType } from '@angular/cdk/platform';
 
 @Component({
   selector: "app-search-page",
@@ -16,6 +17,7 @@ import { Category } from "../../models/category";
   styleUrls: ["./search-page.component.scss"],
 })
 export class SearchPageComponent implements OnInit {
+  bgImage: string;
   myForm: FormGroup;
 
   categories: Category[] = [
@@ -30,7 +32,9 @@ export class SearchPageComponent implements OnInit {
     private fb: FormBuilder,
     private geocodingService: GeocodingService,
     private router: Router
-  ) {}
+  ) {
+    this.getBackground()
+  }
 
   ngOnInit(): void {
     this.myForm = this.fb.group({
@@ -38,6 +42,17 @@ export class SearchPageComponent implements OnInit {
       location2: [[], [Validators.required]],
       meetingType: ['n/a', []],
     });
+  }
+
+  getBackground() {
+    let urls: string[] = ["https://images.pexels.com/photos/3184192/pexels-photo-3184192.jpeg",
+                          "https://images.pexels.com/photos/3626622/pexels-photo-3626622.jpeg",
+                          "https://images.pexels.com/photos/1015568/pexels-photo-1015568.jpeg",
+                          "https://images.pexels.com/photos/3851376/pexels-photo-3851376.jpeg",
+                          "https://images.pexels.com/photos/2130137/pexels-photo-2130137.jpeg",
+                          "https://images.pexels.com/photos/3183150/pexels-photo-3183150.jpeg"];
+    let rand = Math.floor(Math.random() * urls.length);
+    this.bgImage = urls[rand];  
   }
 
   get location1() {
