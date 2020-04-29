@@ -15,43 +15,30 @@
             </select>
           </mat-form-field>
         </div>
-        <!-- <label>Meeting Type:</label> 
-                <select matNativeControl required>
-                    <option value="prompt">Meeting Type:</option>
-                    <option value="date">Date</option>
-                    <option value="study">Study</option>
-                    <option value="business">Business</option>
-                </select>
-                -->
         <div class="meeting-option">
           <mat-form-field>
             <mat-label>Meeting Type:</mat-label>
-            <select matNativeControl formControlName="meetingType">
+            <select matNativeControl required formControlName="meetingType">
               <option
-                *ngFor="let category of categories"
-                [ngValue]="category.value"
-                required
-              >
-                {{ category.viewValue }}
+                  *ngFor="let category of categories"
+                  [ngValue]="category.value">
+                  {{ category.viewValue }}
               </option>
             </select>
           </mat-form-field>
         </div>
       </div>
-      <br /><br />
       <div class="search">
         <mat-form-field>
           <input matInput type="text" formControlName="location1" required/>
-          <mat-placeholder class="placeholder"
-            >Enter Location 1...</mat-placeholder
-          >
+          <mat-placeholder 
+              class="placeholder">Enter Location 1...</mat-placeholder>
         </mat-form-field>
         <br /><br />
         <mat-form-field>
           <input matInput type="text" formControlName="location2" required/>
-          <mat-placeholder class="placeholder"
-            >Enter Location 2...</mat-placeholder
-          >
+          <mat-placeholder 
+              class="placeholder">Enter Location 2...</mat-placeholder>
         </mat-form-field>
       </div>
       <div class="submit">

@@ -21,31 +21,13 @@ mat-form-field {
 
 .search {
   align-content: center;
+  width: 400px;
 }
 
-// input {
-//   font-size: small;
-//   height: 2em;
-//   width: 40em;
-//   border-radius: 0.5em;
-//   padding-left: 10px;
-//   border: 1px solid black;
-//   background-color: white;
-//   color: black;
-//   text-align: left;
-
-//   div.mat-form-field-infix {
-//     padding: 0.3em 0;
-//     input.mat-input-element {
-//       vertical-align: top;
-//     }
-//   }
-// }
 div.mat-form-field-wrapper {
   padding-bottom: 1.15em;
 }
 
-/* figure this outtttttt */
 body,
 html {
   height: 100%;
@@ -103,21 +85,4 @@ select {
   color: white;
   border: 1px;
   height: 40px;
-  //width: 130px;
-  //border-bottom: 1px solid;
 }
-
-// .select-selected:after {
-//   position: absolute;
-//   content: "";
-//   top: 14px;
-//   right: 10px;
-//   width: 0;
-//   height: 0;
-//   border: 6px solid transparent;
-//   border-color: #fff transparent transparent transparent;
-// }
-
-// .select-selected {
-//   background-color: white;
-// }

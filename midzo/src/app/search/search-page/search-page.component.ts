@@ -36,7 +36,7 @@ export class SearchPageComponent implements OnInit {
     this.myForm = this.fb.group({
       location1: [[], [Validators.required]],
       location2: [[], [Validators.required]],
-      meetingType: [null, []],
+      meetingType: ['n/a', []],
     });
   }
 
