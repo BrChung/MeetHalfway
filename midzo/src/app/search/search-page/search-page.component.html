@@ -30,6 +30,7 @@
               <option
                 *ngFor="let category of categories"
                 [ngValue]="category.value"
+                required
               >
                 {{ category.viewValue }}
               </option>
@@ -40,14 +41,14 @@
       <br /><br />
       <div class="search">
         <mat-form-field>
-          <input matInput type="text" formControlName="location1" />
+          <input matInput type="text" formControlName="location1" required/>
           <mat-placeholder class="placeholder"
             >Enter Location 1...</mat-placeholder
           >
         </mat-form-field>
         <br /><br />
         <mat-form-field>
-          <input matInput type="text" formControlName="location2" />
+          <input matInput type="text" formControlName="location2" required/>
           <mat-placeholder class="placeholder"
             >Enter Location 2...</mat-placeholder
           >

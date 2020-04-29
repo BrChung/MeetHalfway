@@ -57,22 +57,25 @@ export class SearchPageComponent implements OnInit {
     const location1 = formValue["location1"];
     const location2 = formValue["location2"];
     var meetingType = [];
-    if (
-      formValue["meetingType"] !== "n/a" &&
-      formValue["meetingType"] !== null
-    ) {
-      meetingType.push(formValue["meetingType"]);
+
+    if(this.myForm.valid) {
+      if (
+        formValue["meetingType"] !== "n/a" &&
+        formValue["meetingType"] !== null
+      ) {
+        meetingType.push(formValue["meetingType"]);
+      }
+      const geoData_loc1 = await this.geocodingService.getGeocodeAsync(location1);
+      const geoData_loc2 = await this.geocodingService.getGeocodeAsync(location2);
+      const lat_loc1 = geoData_loc1["results"][0]["geometry"]["location"]["lat"];
+      const lng_loc1 = geoData_loc1["results"][0]["geometry"]["location"]["lng"];
+      const lat_loc2 = geoData_loc2["results"][0]["geometry"]["location"]["lat"];
+      const lng_loc2 = geoData_loc2["results"][0]["geometry"]["location"]["lng"];
+      const lat_mid = (lat_loc1 + lat_loc2) / 2;
+      const lng_mid = (lng_loc1 + lng_loc2) / 2;
+      this.router.navigate(["/result"], {
+        queryParams: { lat: lat_mid, lng: lng_mid, tag: meetingType },
+      });
     }
-    const geoData_loc1 = await this.geocodingService.getGeocodeAsync(location1);
-    const geoData_loc2 = await this.geocodingService.getGeocodeAsync(location2);
-    const lat_loc1 = geoData_loc1["results"][0]["geometry"]["location"]["lat"];
-    const lng_loc1 = geoData_loc1["results"][0]["geometry"]["location"]["lng"];
-    const lat_loc2 = geoData_loc2["results"][0]["geometry"]["location"]["lat"];
-    const lng_loc2 = geoData_loc2["results"][0]["geometry"]["location"]["lng"];
-    const lat_mid = (lat_loc1 + lat_loc2) / 2;
-    const lng_mid = (lng_loc1 + lng_loc2) / 2;
-    this.router.navigate(["/result"], {
-      queryParams: { lat: lat_mid, lng: lng_mid, tag: meetingType },
-    });
   }
 }
