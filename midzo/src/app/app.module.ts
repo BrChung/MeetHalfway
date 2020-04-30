@@ -20,6 +20,9 @@ import { FormsModule, ReactiveFormsModule } from "@angular/forms";
 import { MatSelectModule } from "@angular/material/select";
 import { MatFormFieldModule } from "@angular/material/form-field";
 
+import { NgxIntlTelInputModule } from "ngx-intl-tel-input";
+import { BsDropdownModule } from "ngx-bootstrap/dropdown";
+
 @NgModule({
   declarations: [AppComponent, HomePageComponent],
   imports: [
@@ -35,6 +38,8 @@ import { MatFormFieldModule } from "@angular/material/form-field";
     ReactiveFormsModule,
     MatSelectModule,
     MatFormFieldModule,
+    NgxIntlTelInputModule,
+    BsDropdownModule.forRoot(),
   ],
   providers: [GeofirexService, GeocodingService],
   bootstrap: [AppComponent],

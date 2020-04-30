@@ -1,1 +1,160 @@
-<p>add-destination-page works!</p>
+<div class="addDestinationFrom">
+  <mat-card>
+    <form
+      [formGroup]="addDestForm"
+      novalidate
+      [hidden]="success"
+      (ngSubmit)="submitHandler()"
+    >
+      <h3>Add Your Destination Details</h3>
+
+      <mat-form-field>
+        <mat-label>Destination Name</mat-label>
+        <input matInput placeholder="Bob's Kitchen" formControlName="name" />
+        <mat-error *ngIf="name.invalid">
+          Must be at least four characters long
+        </mat-error>
+      </mat-form-field>
+      <mat-form-field>
+        <mat-label>Destination ID</mat-label>
+        <input
+          matInput
+          placeholder="bobs-kitchen-ny"
+          formControlName="destID"
+        />
+        <mat-error *ngIf="destID.invalid">
+          <mat-error *ngIf="destID.errors.minlength">
+            Must be at least four characters long
+          </mat-error>
+          <mat-error *ngIf="!destID.errors.minlength && destID.errors.pattern">
+            Must only include lowercase letters and numbers with hyphens as
+            seperators
+          </mat-error>
+          <mat-error
+            *ngIf="
+              !destID.errors.minlength &&
+              !destID.errors.pattern &&
+              destID.errors.required
+            "
+          >
+            Destination ID is required
+          </mat-error>
+          <mat-error
+            *ngIf="
+              !destID.errors.minlength &&
+              !destID.errors.pattern &&
+              !destID.errors.required
+            "
+          >
+            {{ destID.value }} is not avaliable
+          </mat-error>
+        </mat-error>
+        <mat-hint *ngIf="destID.valid">
+          {{ destID.value }} is avaliable
+        </mat-hint>
+        <mat-hint *ngIf="destID.pending">
+          Hold tight ... Checking availability of {{ destID.value }}
+        </mat-hint>
+      </mat-form-field>
+      <mat-form-field>
+        <mat-label>Street Address</mat-label>
+        <input
+          matInput
+          placeholder="1234 Anywhere Ave"
+          formControlName="streetAddress"
+        />
+        <mat-error *ngIf="streetAddress.invalid && streetAddress.touched">
+          A street address is required!
+        </mat-error>
+      </mat-form-field>
+      <mat-form-field>
+        <mat-label>Zip Code</mat-label>
+        <input matInput placeholder="10021" formControlName="zipCode" />
+        <mat-error *ngIf="zipCode.invalid && zipCode.touched">
+          Zip code must be five digits
+        </mat-error>
+      </mat-form-field>
+
+      <ngx-intl-tel-input
+        [onlyCountries]="[CountryISO.UnitedStates]"
+        [maxLength]="15"
+        [tooltipField]="TooltipLabel.Name"
+        [phoneValidation]="true"
+        [separateDialCode]="separateDialCode"
+        name="phoneNumber"
+        formControlName="phoneNumber"
+      >
+      </ngx-intl-tel-input>
+      <mat-error *ngIf="phoneNumber.touched && phoneNumber.errors">
+        A valid phone number is required
+      </mat-error>
+
+      <mat-form-field>
+        <mat-label>Website</mat-label>
+        <input
+          matInput
+          placeholder="https://midzo.co"
+          formControlName="website"
+        />
+        <mat-error *ngIf="website.invalid && website.touched">
+          URL must be valid
+        </mat-error>
+      </mat-form-field>
+      <h4>Categories</h4>
+      <div *ngFor="let category of categories.controls; index as i">
+        <mat-form-field>
+          <mat-label>Category</mat-label>
+          <input
+            type="text"
+            matInput
+            placeholder="Food"
+            [formControl]="categories.controls[i]"
+            [matAutocomplete]="auto"
+          />
+          <mat-autocomplete #auto="matAutocomplete">
+            <mat-option
+              *ngFor="let option of filteredOptions[i]"
+              [value]="option"
+            >
+              {{ option }}
+            </mat-option>
+          </mat-autocomplete>
+          <mat-error *ngIf="categories.controls[i].errors?.requireMatch"
+            >Value need match available options</mat-error
+          >
+        </mat-form-field>
+        <button
+          mat-raised-button
+          color="warn"
+          type="button"
+          (click)="deleteCategory(i)"
+        >
+          Delete
+        </button>
+      </div>
+
+      <button
+        mat-raised-button
+        color="primary"
+        type="button"
+        (click)="addCategory()"
+      >
+        Add Category
+      </button>
+
+      <button
+        mat-raised-button
+        type="submit"
+        [disabled]="addDestForm.invalid"
+        color="primary"
+      >
+        Add Destination
+      </button>
+      <mat-error class="server-error">{{ serverMessage }}</mat-error>
+    </form>
+
+    <div *ngIf="success" class="notification-is-success">
+      Yay! We recieved your submission
+    </div>
+  </mat-card>
+</div>
