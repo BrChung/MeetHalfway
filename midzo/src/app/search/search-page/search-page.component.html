@@ -1,4 +1,6 @@
-<div class="hero-image">
+<div class="hero-image" 
+    [ngStyle]="{'background-image': 'linear-gradient(rgba(0, 0, 0, 0.5), 
+    rgba(0, 0, 0, 0.5)), url(' + bgImage + ')'}">    
   <div class="hero-text">
     <h1>Long Distance Meetings</h1>
     <p>Spend less time planning and more time together</p>
@@ -15,42 +17,30 @@
             </select>
           </mat-form-field>
         </div>
-        <!-- <label>Meeting Type:</label> 
-                <select matNativeControl required>
-                    <option value="prompt">Meeting Type:</option>
-                    <option value="date">Date</option>
-                    <option value="study">Study</option>
-                    <option value="business">Business</option>
-                </select>
-                -->
         <div class="meeting-option">
           <mat-form-field>
             <mat-label>Meeting Type:</mat-label>
-            <select matNativeControl formControlName="meetingType">
+            <select matNativeControl required formControlName="meetingType">
               <option
-                *ngFor="let category of categories"
-                [ngValue]="category.value"
-              >
-                {{ category.viewValue }}
+                  *ngFor="let category of categories"
+                  [ngValue]="category.value">
+                  {{ category.viewValue }}
               </option>
             </select>
           </mat-form-field>
         </div>
       </div>
-      <br /><br />
       <div class="search">
         <mat-form-field>
-          <input matInput type="text" formControlName="location1" />
-          <mat-placeholder class="placeholder"
-            >Enter Location 1...</mat-placeholder
-          >
+          <input matInput type="text" formControlName="location1" required/>
+          <mat-placeholder 
+              class="placeholder">Enter Location 1...</mat-placeholder>
         </mat-form-field>
         <br /><br />
         <mat-form-field>
-          <input matInput type="text" formControlName="location2" />
-          <mat-placeholder class="placeholder"
-            >Enter Location 2...</mat-placeholder
-          >
+          <input matInput type="text" formControlName="location2" required/>
+          <mat-placeholder 
+              class="placeholder">Enter Location 2...</mat-placeholder>
         </mat-form-field>
       </div>
       <div class="submit">
