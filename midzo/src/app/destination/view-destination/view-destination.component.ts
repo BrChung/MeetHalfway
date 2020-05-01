@@ -20,11 +20,13 @@ export class ViewDestinationComponent implements OnInit, OnDestroy {
 
   constructor(private route: ActivatedRoute, private afs: AngularFirestore) {}
 
+  //Photos, reviews (stars and count), change title based on biz
   ngOnInit(): void {
     this.routerSub = this.route.params.subscribe((params) => {
       this.destID = params["destID"];
     });
 
+    //Use get instead
     this.destDoc = this.afs.doc<any>(`destinations/${this.destID}`);
     this.destSub = this.destDoc.snapshotChanges().subscribe((data) => {
       if (data.payload.exists) {
