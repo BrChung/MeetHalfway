@@ -23,6 +23,8 @@ import { MatFormFieldModule } from "@angular/material/form-field";
 import { NgxIntlTelInputModule } from "ngx-intl-tel-input";
 import { BsDropdownModule } from "ngx-bootstrap/dropdown";
 
+import { AgmCoreModule } from "@agm/core";
+
 @NgModule({
   declarations: [AppComponent, HomePageComponent],
   imports: [
@@ -40,6 +42,7 @@ import { BsDropdownModule } from "ngx-bootstrap/dropdown";
     MatFormFieldModule,
     NgxIntlTelInputModule,
     BsDropdownModule.forRoot(),
+    AgmCoreModule.forRoot(environment.googleMaps),
   ],
   providers: [GeofirexService, GeocodingService],
   bootstrap: [AppComponent],

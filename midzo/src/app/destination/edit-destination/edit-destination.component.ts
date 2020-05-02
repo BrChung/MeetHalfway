@@ -7,6 +7,7 @@ import {
   Validators,
   ValidationErrors,
   AbstractControl,
+  NgControl,
 } from "@angular/forms";
 import { ActivatedRoute } from "@angular/router";
 import { Subscription, Observable } from "rxjs";
@@ -22,6 +23,7 @@ import { GeofirexService } from "../../services/geofirex.service";
 import { Category } from "src/app/models/category";
 
 import { TooltipLabel, CountryISO } from "ngx-intl-tel-input";
+import { $ } from "protractor";
 
 @Component({
   selector: "app-edit-destination",
@@ -30,16 +32,22 @@ import { TooltipLabel, CountryISO } from "ngx-intl-tel-input";
 })
 export class EditDestinationComponent implements OnInit, OnDestroy {
   // Page State
-  pageState = true;
+  pageState = true; // If data is loaded
   success = false;
   loading = false;
   disableDeleteCat = true;
   disableAddCat = false;
   serverMessage: string;
 
+  // Map
+  latitude: number;
+  longitude: number;
+  map_cover_visibility = "hidden";
+
   destID: string;
   private routerSub: Subscription;
-  private formSub: Subscription;
+  private categorySub: Subscription;
+  private addressSub: Subscription;
   private destDoc: AngularFirestoreDocument<any>;
   dest: Observable<any>;
   private destSub: Subscription;
@@ -72,6 +80,14 @@ export class EditDestinationComponent implements OnInit, OnDestroy {
           Validators.maxLength(30),
         ],
       ],
+      address: [
+        "",
+        [
+          Validators.required,
+          Validators.minLength(10),
+          Validators.maxLength(95),
+        ],
+      ],
       phoneNumber: new FormControl(undefined, [Validators.required]),
       website: [
         null,
@@ -97,24 +113,45 @@ export class EditDestinationComponent implements OnInit, OnDestroy {
     this.destDoc = this.afs.doc<any>(`destinations/${this.destID}`);
     this.destSub = this.destDoc.snapshotChanges().subscribe((data) => {
       if (data.payload.exists) {
-        console.log("exists");
         this.dest = data.payload.data();
+        console.log(this.dest["position"]["geopoint"]["latitude"]);
 
         for (let i = 0; i < this.dest["categories"].length - 1; i++) {
           this.addCategory();
         }
         this.editDestForm.setValue({
           name: this.dest["name"],
+          address: this.dest["address"],
           phoneNumber: this.dest["phoneNumber"]["number"],
           website: this.dest["website"],
           categories: this.dest["categories"],
         });
 
-        this.formSub = this.editDestForm.valueChanges.subscribe((formValue) => {
-          formValue.categories.forEach((element, index) => {
-            this.filteredOptions[index] = this._filter(element);
+        this.latitude = this.dest["position"]["geopoint"]["latitude"];
+        this.longitude = this.dest["position"]["geopoint"]["longitude"];
+
+        this.categorySub = this.editDestForm
+          .get("categories")
+          .valueChanges.subscribe((categories) => {
+            categories.forEach((element, index) => {
+              this.filteredOptions[index] = this._filter(element);
+            });
           });
-        });
+
+        this.addressSub = this.editDestForm
+          .get("address")
+          .valueChanges.pipe(
+            tap(() => {
+              console.log("hi");
+              this.map_cover_visibility = "visible";
+            }),
+            debounceTime(2000)
+          )
+          .subscribe((address) => {
+            if (address.length >= 10) {
+              console.log("extranal call");
+            }
+          });
       } else {
         console.log("N/A");
         this.pageState = false;
@@ -125,7 +162,8 @@ export class EditDestinationComponent implements OnInit, OnDestroy {
   ngOnDestroy(): void {
     this.routerSub.unsubscribe();
     this.destSub.unsubscribe();
-    this.formSub.unsubscribe();
+    this.categorySub.unsubscribe();
+    this.addressSub.unsubscribe();
   }
 
   get name() {

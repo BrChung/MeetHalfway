@@ -23,6 +23,19 @@
         </mat-error>
       </mat-form-field>
 
+      <mat-form-field>
+        <mat-label>Address</mat-label>
+        <input
+          matInput
+          placeholder="1234 Anywhere Ave #840, Buffalo, NY 14201, USA"
+          formControlName="address"
+          maxlength="95"
+        />
+        <mat-error *ngIf="name.invalid">
+          Valid address is required
+        </mat-error>
+      </mat-form-field>
+
       <ngx-intl-tel-input
         [onlyCountries]="[CountryISO.UnitedStates]"
         [maxLength]="15"
@@ -103,6 +116,18 @@
       </button>
       <mat-error class="server-error">{{ serverMessage }}</mat-error>
     </form>
+    <div id="map">
+      <agm-map
+        [latitude]="latitude"
+        [longitude]="longitude"
+        [zoom]="15"
+        [minZoom]="13"
+      >
+        <agm-marker [latitude]="latitude" [longitude]="longitude"></agm-marker>
+      </agm-map>
+      <div class="map-cover" [style.visibility]="map_cover_visibility"></div>
+      <div class="loader" [style.visibility]="map_cover_visibility"></div>
+    </div>
   </mat-card>
 </div>
 
