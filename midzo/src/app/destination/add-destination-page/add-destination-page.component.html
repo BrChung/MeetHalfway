@@ -10,9 +10,14 @@
 
       <mat-form-field>
         <mat-label>Destination Name</mat-label>
-        <input matInput placeholder="Bob's Kitchen" formControlName="name" />
+        <input
+          matInput
+          placeholder="Bob's Kitchen"
+          formControlName="name"
+          maxlength="30"
+        />
         <mat-error *ngIf="name.invalid">
-          Must be at least four characters long
+          Must be at least four characters
         </mat-error>
       </mat-form-field>
       <mat-form-field>
@@ -21,6 +26,7 @@
           matInput
           placeholder="bobs-kitchen-ny"
           formControlName="destID"
+          maxlength="40"
         />
         <mat-error *ngIf="destID.invalid">
           <mat-error *ngIf="destID.errors.minlength">
@@ -48,6 +54,9 @@
           >
             {{ destID.value }} is not avaliable
           </mat-error>
+          <mat-hint>
+            Destination ID cannot be changed once assigned
+          </mat-hint>
         </mat-error>
         <mat-hint *ngIf="destID.valid">
           {{ destID.value }} is avaliable
@@ -62,6 +71,7 @@
           matInput
           placeholder="1234 Anywhere Ave"
           formControlName="streetAddress"
+          maxlength="50"
         />
         <mat-error *ngIf="streetAddress.invalid && streetAddress.touched">
           A street address is required!
@@ -69,7 +79,12 @@
       </mat-form-field>
       <mat-form-field>
         <mat-label>Zip Code</mat-label>
-        <input matInput placeholder="10021" formControlName="zipCode" />
+        <input
+          matInput
+          placeholder="10021"
+          formControlName="zipCode"
+          maxlength="5"
+        />
         <mat-error *ngIf="zipCode.invalid && zipCode.touched">
           Zip code must be five digits
         </mat-error>
@@ -95,6 +110,7 @@
           matInput
           placeholder="https://midzo.co"
           formControlName="website"
+          maxlength="50"
         />
         <mat-error *ngIf="website.invalid && website.touched">
           URL must be valid
@@ -107,6 +123,7 @@
           <input
             type="text"
             matInput
+            maxlength="25"
             placeholder="Food"
             [formControl]="categories.controls[i]"
             [matAutocomplete]="auto"
@@ -127,6 +144,7 @@
           mat-raised-button
           color="warn"
           type="button"
+          disabled="{{ disableDeleteCat }}"
           (click)="deleteCategory(i)"
         >
           Delete
@@ -137,6 +155,7 @@
         mat-raised-button
         color="primary"
         type="button"
+        disabled="{{ disableAddCat }}"
         (click)="addCategory()"
       >
         Add Category

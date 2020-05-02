@@ -34,6 +34,8 @@ export class AddDestinationPageComponent implements OnInit {
   loading = false;
   success = false;
   previousFormState: any;
+  disableDeleteCat = true;
+  disableAddCat = false;
   serverMessage: string;
 
   // Geocode Value
@@ -58,17 +60,25 @@ export class AddDestinationPageComponent implements OnInit {
     this.geo = this.goefirex.getGeo();
 
     this.addDestForm = this.fb.group({
-      name: [[], [Validators.required, Validators.minLength(4)]],
+      name: [
+        [],
+        [
+          Validators.required,
+          Validators.minLength(4),
+          Validators.maxLength(30),
+        ],
+      ],
       destID: [
         [],
         [
           Validators.required,
           Validators.minLength(4),
+          Validators.maxLength(40),
           Validators.pattern("^[a-z0-9]+(-[a-z0-9]+)*$"),
         ],
         DestinationValidator.destID(this.afs),
       ],
-      streetAddress: [[], [Validators.required]],
+      streetAddress: [[], [Validators.required, Validators.maxLength(50)]],
       zipCode: [[], [Validators.required, Validators.pattern("^\\d{5}$")]],
       phoneNumber: new FormControl(undefined, [Validators.required]),
       website: [
@@ -78,14 +88,18 @@ export class AddDestinationPageComponent implements OnInit {
           Validators.pattern(
             "^(?:(?:(?:https?|ftp):)?//)(?:S+(?::S*)?@)?(?:(?!(?:10|127)(?:.d{1,3}){3})(?!(?:169.254|192.168)(?:.d{1,3}){2})(?!172.(?:1[6-9]|2d|3[0-1])(?:.d{1,3}){2})(?:[1-9]d?|1dd|2[01]d|22[0-3])(?:.(?:1?d{1,2}|2[0-4]d|25[0-5])){2}(?:.(?:[1-9]d?|1dd|2[0-4]d|25[0-4]))|(?:(?:[a-z0-9\u00a1-\uffff][a-z0-9\u00a1-\uffff_-]{0,62})?[a-z0-9\u00a1-\uffff].)+(?:[a-z\u00a1-\uffff]{2,}.?))(?::d{2,5})?(?:[/?#]S*)?$"
           ),
+          Validators.maxLength(50),
         ],
       ],
-      categories: this.fb.array([
-        this.fb.control("", [
-          Validators.required,
-          this.requireMatch.bind(this),
-        ]),
-      ]),
+      categories: this.fb.array(
+        [
+          this.fb.control("", [
+            Validators.required,
+            this.requireMatch.bind(this),
+          ]),
+        ],
+        [Validators.required, Validators.maxLength(5)]
+      ),
     });
 
     this.addDestForm.valueChanges.subscribe((formValue) => {
@@ -145,10 +159,22 @@ export class AddDestinationPageComponent implements OnInit {
     this.categories.push(
       new FormControl("", [Validators.required, this.requireMatch.bind(this)])
     );
+    if (this.categories.length > 1) {
+      this.disableDeleteCat = false;
+    }
+    if (this.categories.length >= 5) {
+      this.disableAddCat = true;
+    }
   }
 
   deleteCategory(index: number) {
     this.categories.removeAt(index);
+    if (this.categories.length <= 1) {
+      this.disableDeleteCat = true;
+    }
+    if (this.categories.length <= 4) {
+      this.disableAddCat = false;
+    }
   }
 
   //Writing the Data to FireStore
@@ -167,6 +193,7 @@ export class AddDestinationPageComponent implements OnInit {
       const position = this.geo.point(latLng["lat"], latLng["lng"]);
       formValue["position"] = position;
       formValue["address"] = formattedAddress;
+      formValue["categories"] = removeDuplicates(formValue["categories"]);
 
       /*
 
@@ -228,4 +255,8 @@ export class DestinationValidator {
         );
     };
   }
+}
+
+function removeDuplicates(array: Array<string>) {
+  return array.filter((a, b) => array.indexOf(a) === b);
 }
