@@ -1,40 +1,52 @@
 agm-map {
-  width: inherit;
-  height: 70vh;
+	width: inherit;
+	height: 70vh;
 }
 .results-page {
-  display: flex;
-  position: relative;
+	display: flex;
+	position: relative;
 }
 .right-container {
-  flex-grow: 0.49465;
-  flex-shrink: 1;
-  flex-basis: 295px;
+	flex-grow: 0.49465;
+	flex-shrink: 1;
+	flex-basis: 295px;
 }
 .list-container {
-  display: flex;
-  flex-direction: column;
+	display: flex;
+	flex-direction: column;
 }
 .left-container {
-  flex-grow: 0.50535;
-  flex-shrink: 0;
-  flex-basis: 1027px;
+	flex-grow: 0.50535;
+	flex-shrink: 0;
+	flex-basis: 1027px;
 }
 .map-container {
-  height: 100%;
+	height: 100%;
 }
 .map {
-  position: sticky;
-  top: 0px;
+	position: sticky;
+	top: 0px;
 }
 .card {
-  padding: 22px;
-  margin-bottom: 22px;
-  margin-left: 22px;
-  margin-right: 22px;
+	padding: 22px;
+	margin-bottom: 22px;
+	margin-left: 22px;
+	margin-right: 22px;
 }
 .title {
-  margin-top: 24px;
-  margin-bottom: 24px;
-  margin-left: 22px;
+	margin-top: 24px;
+	margin-bottom: 24px;
+	margin-left: 22px;
+}
+
+.agm-info-window {
+	color: black;
+}
+
+.agm-info-window-content {
+	color: black;
+}
+
+.mat-drawer-container {
+	color: black;
 }
