@@ -23,6 +23,7 @@
     "@angular/platform-browser": "~9.0.3",
     "@angular/platform-browser-dynamic": "~9.0.3",
     "@angular/router": "~9.0.3",
+    "angular": "^1.7.9",
     "bootstrap": "^4.4.1",
     "firebase": "^7.14.2",
     "geofirex": "^0.1.0",
