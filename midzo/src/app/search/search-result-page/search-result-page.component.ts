@@ -4,6 +4,7 @@ import { switchMap } from "rxjs/operators";
 import { GeofirexService } from "../../services/geofirex.service";
 import * as firebase from "firebase/app";
 import { ActivatedRoute } from "@angular/router";
+import { SSL_OP_SSLEAY_080_CLIENT_DH_BUG } from "constants";
 
 @Component({
   selector: "app-search-result-page",
@@ -14,13 +15,16 @@ export class SearchResultPageComponent implements OnInit {
   location: Location;
   points: Observable<any>;
   geo: any;
-  radius = new BehaviorSubject(7);
+  radius = new BehaviorSubject(1);
   latitude: number;
   longitude: number;
   // curr_lat: number;
   // curr_lng: number;
   previousWindow;
   tags: Array<string>;
+  destinations: Array<any>;
+
+  currentRadius = 0;
 
   constructor(
     private route: ActivatedRoute,
@@ -79,9 +83,16 @@ export class SearchResultPageComponent implements OnInit {
 
     this.points = this.radius.pipe(
       switchMap((r) => {
-        return this.geo.query(destinations).within(center, r, field);
+        return this.geo
+          .query(destinations)
+          .within(center, r, field, { log: true });
       })
     );
+
+    this.points.subscribe((points) => {
+      this.destinations = points;
+      console.log(this.destinations);
+    });
   }
 
   /* if ever needed to get user's current location */
@@ -98,8 +109,21 @@ export class SearchResultPageComponent implements OnInit {
     this.radius.next(v);
   }
 
+  incrementR() {
+    this.currentRadius++;
+    this.radius.next(this.currentRadius);
+  }
+
   trackByFn(_, doc) {
     return doc.id;
+  }
+
+  mouseOverDestination(index: number) {
+    console.log(index);
+  }
+
+  mouseLeaveDestination(index: number) {
+    console.log("leave" + index);
   }
 }
 

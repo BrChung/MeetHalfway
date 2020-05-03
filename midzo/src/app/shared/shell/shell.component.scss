@@ -1,7 +1,7 @@
 .sidenav-container {
   height: 100%;
 }
-  
+
 .logo {
   font-size: 1.2em;
   cursor: pointer;
@@ -51,8 +51,16 @@ i {
   margin-top: 10px;
 }
 
-.mat-toolbar, .mat-menu, .mat-menu-item {
+.mat-toolbar,
+.mat-menu,
+.mat-menu-item {
   background-color: rebeccapurple;
   color: white;
+}
 
+.app-toolbar {
+  position: sticky;
+  position: -webkit-sticky; /* For macOS/iOS Safari */
+  top: 0; /* Sets the sticky toolbar to be on top */
+  z-index: 1000; /* Ensure that your app's content doesn't overlap the toolbar */
 }

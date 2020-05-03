@@ -14,6 +14,7 @@ import { MatFormFieldModule } from "@angular/material/form-field";
 import { MatInputModule } from "@angular/material/input";
 import { MatSnackBarModule } from "@angular/material/snack-bar";
 import { MatAutocompleteModule } from "@angular/material/autocomplete";
+import { MatRippleModule } from "@angular/material/core";
 import { ShellComponent } from "./shell/shell.component";
 
 const components = [ShellComponent];
@@ -32,6 +33,7 @@ const modules = [
   MatInputModule,
   MatSnackBarModule,
   MatAutocompleteModule,
+  MatRippleModule,
   CommonModule,
 ];
 

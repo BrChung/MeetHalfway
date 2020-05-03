@@ -242,7 +242,7 @@ export class DestinationValidator {
   static destID(afs: AngularFirestore) {
     return (control: AbstractControl) => {
       const destID = control.value.toLowerCase();
-
+      //Is this checking every document or is this simply checking collection names
       return afs
         .collection("destinations", (ref) => ref.where("destID", "==", destID))
 
