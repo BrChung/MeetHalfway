@@ -25,6 +25,7 @@ export class SearchResultPageComponent implements OnInit {
   destinations: Array<any>;
 
   currentRadius = 0;
+  title = "Destinations";
 
   constructor(
     private route: ActivatedRoute,
