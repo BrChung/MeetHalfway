@@ -3,6 +3,8 @@
 
 <div class="content">
     Value: {{ myForm.value | json }}
+
+    
     <hr>
     <mat-form-field>
         <input matInput placeholder="Name" formControlName="name">
@@ -15,7 +17,7 @@
         <mat-error *ngIf="email.invalid && email.touched">
             Your email does not look right
         </mat-error>
-            
+
     </mat-form-field>
     <br>
 
@@ -55,24 +57,24 @@
     List of favorite foods:
     <br>
     <div formArrayName="favoriteFoods"><!--Holds all nested key and values -->
-        <div *ngFor="let fav of foodForms.controls; let i=index" 
+        <div *ngFor="let fav of foodForms.controls; let i=index"
               [formGroupName]="i">
-  
+
             <input formControlName="favFood"> <!--Key for the pair inside formArray -->
 
             <button (click)="deleteFavoriteFood(i)">Delete favorite food</button>
         </div>
     </div>
-    
+
     <button (click)="addFavoriteFood()">Add favorite food</button>
     <br>
     <br>
     List of interests:
     <br>
     <div formArrayName="interests"> <!--Holds all nested key and values -->
-        <div *ngFor="let fav of interestForms.controls; let i=index" 
+        <div *ngFor="let fav of interestForms.controls; let i=index"
               [formGroupName]="i">
-  
+
             <input formControlName="interest"> <!--Key for the pair inside formArray -->
 
             <button (click)="deleteInterest(i)">Delete interest</button>
@@ -80,7 +82,8 @@
     </div>
     <button (click)="addInterest()">Add interest</button>
     <button (click)="updateUserProfileData()">Submit profile</button>
-
-</div>
+    <a class="btn btn-danger" [routerLink] = "['/edit-profile/' + uid]">Edit</a>
+    <!-- <a class="btn btn-danger" [routerLink] = "['/edit-profile']">Edit</a> -->
+ </div>
 
 </form>

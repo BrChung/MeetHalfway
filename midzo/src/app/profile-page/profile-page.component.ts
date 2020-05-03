@@ -3,7 +3,11 @@ import { AngularFireAuth } from "@angular/fire/auth";
 import { FormBuilder, FormGroup, FormArray, FormsModule, Validators } from '@angular/forms';
 import * as firebase from 'firebase';
 import { AngularFirestore, AngularFirestoreDocument } from '@angular/fire/firestore';
+//import { Observable } from 'rxjs';
+import { AngularFireDatabase } from '@angular/fire/database';
 import { UserProfile } from "../models/profile";
+import { getMatIconNameNotFoundError } from '@angular/material/icon';
+//import { getMaxListeners } from 'cluster';
 
 
 //only work here
@@ -15,10 +19,11 @@ import { UserProfile } from "../models/profile";
 
 
 export class ProfilePageComponent implements OnInit {
- 
+  
   myForm: FormGroup;
   uid;
- 
+  //items: Observable<UserProfile[]>
+
   constructor(
     private afAuth: AngularFireAuth,
     private afs: AngularFirestore,
@@ -115,11 +120,6 @@ export class ProfilePageComponent implements OnInit {
   {
     return this.myForm.get('favorites')
   }
-  
-  get activities()
-  {
-    return this.myForm.get('activities')
-  }
 
   get career()
   {
@@ -130,6 +130,7 @@ export class ProfilePageComponent implements OnInit {
   {
     return this.selectGender
   }
+
 
   updateUserProfileData() {
 
@@ -155,6 +156,7 @@ export class ProfilePageComponent implements OnInit {
     return userRef.set({...data}, { merge: true });
   }
 }
-
+ 
 // work on editing the current values. this adds values, so we need to edit them. if the profile or user id exists,
 //extract the data and edit it. put the values as the default data in the form
+

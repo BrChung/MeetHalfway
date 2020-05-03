@@ -2,6 +2,7 @@ import { NgModule } from '@angular/core';
 import { Routes, RouterModule } from '@angular/router';
 import { HomePageComponent } from './home-page/home-page.component';
 import { ProfilePageComponent } from './profile-page/profile-page.component';
+import { EditProfileComponent } from './edit-profile/edit-profile.component';
 
 
 const routes: Routes = [
@@ -14,7 +15,13 @@ const routes: Routes = [
   },
   {
     path: 'profile', component: ProfilePageComponent 
+  },
+  {
+    //path: 'edit-profile', component: EditProfileComponent 
+
+    path: 'edit-profile/:uid', component: EditProfileComponent 
   }
+  
   
 
 ];

@@ -1,7 +1,7 @@
 export interface UserProfile {
   uid?: string;
   name?: string;
-  email: string; 
+  email?: string; 
   city?: string;
   gender?: string;
   career?: string;

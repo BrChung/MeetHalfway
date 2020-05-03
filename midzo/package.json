@@ -24,6 +24,7 @@
     "@angular/platform-browser-dynamic": "~9.0.3",
     "@angular/router": "~9.0.3",
     "firebase": ">= 5.5.7 <8",
+    "firebase-service": "^4.0.254",
     "geofirex": "^0.1.0",
     "rxjs": "~6.5.4",
     "tslib": "^1.10.0",

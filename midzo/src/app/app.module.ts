@@ -12,6 +12,8 @@ import { AngularFireModule } from '@angular/fire'
 import { AngularFirestoreModule } from '@angular/fire/firestore'
 import { AngularFireAuthModule } from '@angular/fire/auth'
 
+
+
 import { GeofirexService } from './services/geofirex.service';
 import { GeocodingService } from './services/geocoding.service';
 
@@ -21,12 +23,14 @@ import { ProfilePageComponent } from './profile-page/profile-page.component';
 import { ReactiveFormsModule } from '@angular/forms';
 import { FormsModule } from '@angular/forms';
 import {MatRadioModule} from'@angular/material/radio';
+import { EditProfileComponent } from './edit-profile/edit-profile.component';
 
 @NgModule({
   declarations: [
     AppComponent,
     HomePageComponent,
-    ProfilePageComponent
+    ProfilePageComponent,
+    EditProfileComponent
   ],
   imports: [
     BrowserModule,
