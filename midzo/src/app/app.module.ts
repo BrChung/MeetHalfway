@@ -11,6 +11,7 @@ import { environment } from "../environments/environment";
 import { AngularFireModule } from "@angular/fire";
 import { AngularFirestoreModule } from "@angular/fire/firestore";
 import { AngularFireAuthModule } from "@angular/fire/auth";
+import { AngularFireStorageModule } from "@angular/fire/storage";
 
 import { GeofirexService } from "./services/geofirex.service";
 import { GeocodingService } from "./services/geocoding.service";
@@ -24,9 +25,10 @@ import { NgxIntlTelInputModule } from "ngx-intl-tel-input";
 import { BsDropdownModule } from "ngx-bootstrap/dropdown";
 
 import { AgmCoreModule } from "@agm/core";
+import { ReviewsComponent } from "./reviews/reviews.component";
 
 @NgModule({
-  declarations: [AppComponent, HomePageComponent],
+  declarations: [AppComponent, HomePageComponent, ReviewsComponent],
   imports: [
     BrowserModule,
     AppRoutingModule,
@@ -35,6 +37,7 @@ import { AgmCoreModule } from "@agm/core";
     AngularFireModule.initializeApp(environment.firebase),
     AngularFirestoreModule,
     AngularFireAuthModule,
+    AngularFireStorageModule,
     HttpClientModule,
     FormsModule,
     ReactiveFormsModule,

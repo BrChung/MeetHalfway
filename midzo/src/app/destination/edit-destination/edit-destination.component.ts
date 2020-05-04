@@ -1,4 +1,10 @@
-import { Component, OnInit, OnDestroy } from "@angular/core";
+import {
+  Component,
+  OnInit,
+  OnDestroy,
+  Input,
+  ChangeDetectorRef,
+} from "@angular/core";
 import {
   FormBuilder,
   FormGroup,
@@ -15,8 +21,17 @@ import {
   AngularFirestore,
   AngularFirestoreDocument,
 } from "@angular/fire/firestore";
-import { tap, first, map, take, debounceTime, startWith } from "rxjs/operators";
+import {
+  tap,
+  first,
+  map,
+  take,
+  debounceTime,
+  startWith,
+  finalize,
+} from "rxjs/operators";
 import { AngularFireModule } from "@angular/fire";
+import { AngularFireAuth } from "@angular/fire/auth";
 
 import { GeocodingService } from "../../services/geocoding.service";
 import { GeofirexService } from "../../services/geofirex.service";
@@ -24,6 +39,7 @@ import { Category } from "src/app/models/category";
 
 import { TooltipLabel, CountryISO } from "ngx-intl-tel-input";
 import { $ } from "protractor";
+import { getSupportedInputTypes } from "@angular/cdk/platform";
 
 @Component({
   selector: "app-edit-destination",
@@ -60,13 +76,18 @@ export class EditDestinationComponent implements OnInit, OnDestroy {
   TooltipLabel = TooltipLabel;
   CountryISO = CountryISO;
 
+  uid: string;
+  fromOwner = true;
+
   constructor(
     private route: ActivatedRoute,
     private afs: AngularFirestore,
+    public afAuth: AngularFireAuth,
     private fb: FormBuilder
   ) {}
 
   ngOnInit(): void {
+    this.getUID();
     this.routerSub = this.route.params.subscribe((params) => {
       this.destID = params["destID"];
     });
@@ -108,6 +129,7 @@ export class EditDestinationComponent implements OnInit, OnDestroy {
         ],
         [Validators.required, Validators.maxLength(5)]
       ),
+      description: [[], [Validators.required, Validators.maxLength(1000)]],
     });
 
     this.destDoc = this.afs.doc<any>(`destinations/${this.destID}`);
@@ -125,6 +147,7 @@ export class EditDestinationComponent implements OnInit, OnDestroy {
           phoneNumber: this.dest["phoneNumber"]["number"],
           website: this.dest["website"],
           categories: this.dest["categories"],
+          description: this.dest["description"],
         });
 
         this.latitude = this.dest["position"]["geopoint"]["latitude"];
@@ -159,6 +182,11 @@ export class EditDestinationComponent implements OnInit, OnDestroy {
     });
   }
 
+  async getUID() {
+    const { uid } = await this.afAuth.user.pipe(first()).toPromise();
+    this.uid = uid;
+  }
+
   ngOnDestroy(): void {
     this.routerSub.unsubscribe();
     this.destSub.unsubscribe();
@@ -182,6 +210,10 @@ export class EditDestinationComponent implements OnInit, OnDestroy {
     return this.editDestForm.get("categories") as FormArray;
   }
 
+  get description() {
+    return this.editDestForm.get("description");
+  }
+
   addCategory() {
     this.categories.push(
       new FormControl("", [Validators.required, this.requireMatch.bind(this)])
@@ -203,6 +235,7 @@ export class EditDestinationComponent implements OnInit, OnDestroy {
       this.disableAddCat = false;
     }
   }
+
   async submitHandler() {
     const formValue = this.editDestForm.value;
     formValue["categories"] = removeDuplicates(formValue["categories"]);

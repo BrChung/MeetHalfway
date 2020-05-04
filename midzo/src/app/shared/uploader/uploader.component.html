@@ -1,0 +1,36 @@
+<div
+  class="dropzone"
+  dropzone
+  (hovered)="toggleHover($event)"
+  (dropped)="onDrop($event)"
+  [class.hovering]="isHovering"
+>
+  <h3 style="color: black;">Upload an Image</h3>
+  <p style="color: black;">Drag and Drop a Photo or</p>
+  <div class="file">
+    <label class="file-label">
+      <input
+        class="file-input"
+        type="file"
+        (change)="onDrop($event.target.files)"
+      />
+
+      <span class="file-cta">
+        <span class="file-icon">
+          <i class="fa fa-upload"></i>
+        </span>
+      </span>
+    </label>
+  </div>
+</div>
+
+<h3>Uploads</h3>
+
+<div *ngFor="let file of files">
+  <app-upload-dest-photo
+    [file]="file"
+    [destID]="this.destID"
+    [uid]="this.uid"
+    [fromOwner]="this.fromOwner"
+  ></app-upload-dest-photo>
+</div>

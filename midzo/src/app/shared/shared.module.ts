@@ -16,8 +16,16 @@ import { MatSnackBarModule } from "@angular/material/snack-bar";
 import { MatAutocompleteModule } from "@angular/material/autocomplete";
 import { MatRippleModule } from "@angular/material/core";
 import { ShellComponent } from "./shell/shell.component";
+import { DropzoneDirective } from "./dropzone.directive";
+import { UploaderComponent } from "./uploader/uploader.component";
+import { UploadDestPhotoComponent } from "./upload-dest-photo/upload-dest-photo.component";
 
-const components = [ShellComponent];
+const components = [
+  ShellComponent,
+  DropzoneDirective,
+  UploaderComponent,
+  UploadDestPhotoComponent,
+];
 
 const modules = [
   MatButtonModule,
@@ -40,6 +48,6 @@ const modules = [
 @NgModule({
   declarations: [...components, ShellComponent],
   imports: [...modules],
-  exports: [...components, ...modules, ShellComponent],
+  exports: [...components, ...modules, ShellComponent, UploaderComponent],
 })
 export class SharedModule {}

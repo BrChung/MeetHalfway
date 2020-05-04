@@ -194,7 +194,12 @@ export class AddDestinationPageComponent implements OnInit {
       formValue["position"] = position;
       formValue["address"] = formattedAddress;
       formValue["categories"] = removeDuplicates(formValue["categories"]);
-
+      formValue["createdAt"] = Date.now();
+      formValue["pictures"] = [];
+      formValue["description"] = null;
+      formValue["stars"] = 0;
+      formValue["reviewCount"] = 0;
+      formValue["lastFiveReviews"] = [];
       /*
 
       TO CHECK:
@@ -207,6 +212,10 @@ export class AddDestinationPageComponent implements OnInit {
           .collection("destinations")
           .doc(formValue.destID)
           .set(formValue, { merge: true });
+        await this.afs
+          .collection("reviews")
+          .doc(formValue.destID)
+          .set({ destID: formValue.destID, reviews: [] });
         this.success = true;
       } catch (err) {
         console.error(err);

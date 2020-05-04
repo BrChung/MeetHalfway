@@ -24,6 +24,21 @@
       </mat-form-field>
 
       <mat-form-field>
+        <mat-label>Add a description</mat-label>
+        <textarea
+          matInput
+          cdkTextareaAutosize
+          placeholder="Text about the business"
+          formControlName="description"
+          maxlength="1000"
+        >
+        </textarea>
+        <mat-error *ngIf="description.invalid">
+          Error with description
+        </mat-error>
+      </mat-form-field>
+
+      <mat-form-field>
         <mat-label>Address</mat-label>
         <input
           matInput
@@ -95,6 +110,12 @@
           Delete
         </button>
       </div>
+
+      <uploader
+        [uid]="this.uid"
+        [destID]="this.destID"
+        [fromOwner]="this.fromOwner"
+      ></uploader>
 
       <button
         mat-raised-button
