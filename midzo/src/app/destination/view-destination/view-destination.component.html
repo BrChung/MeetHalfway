@@ -1,2 +1,10 @@
 <p>view-destination works!</p>
 {{ dest | json }}
+
+<div class="page-container" *ngIf="dest | json">
+    <div>
+        <H1><b>{{ dest.destID }}</b></H1>
+        <p>{{ dest.stars }}</p>
+        <h3>{{ dest.categories }}</h3>
+    </div>
+</div>

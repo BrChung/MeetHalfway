@@ -15,10 +15,13 @@ export class ViewDestinationComponent implements OnInit, OnDestroy {
   destID: string;
   private routerSub: Subscription;
   private destDoc: AngularFirestoreDocument<any>;
-  dest: Observable<any>;
+  dest: any;
   private destSub: Subscription;
 
-  constructor(private route: ActivatedRoute, private afs: AngularFirestore) {}
+  constructor(
+    private route: ActivatedRoute, 
+    private afs: AngularFirestore
+  ) {}
 
   //Photos, reviews (stars and count), change title based on biz
   ngOnInit(): void {
