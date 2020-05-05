@@ -81,9 +81,11 @@
         </div>
     </div>
     <button (click)="addInterest()">Add interest</button>
+    <br>
+    <br>
     <button (click)="updateUserProfileData()">Submit profile</button>
-    <a class="btn btn-danger" [routerLink] = "['/edit-profile/' + uid]">Edit</a>
-    <!-- <a class="btn btn-danger" [routerLink] = "['/edit-profile']">Edit</a> -->
+    <br>
+    <button class="nav-item nav-link-edit" [routerLink]="['/edit-profile/' + uid]">Edit profile</button>
  </div>
 
 </form>

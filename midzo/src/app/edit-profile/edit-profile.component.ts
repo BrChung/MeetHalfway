@@ -135,11 +135,11 @@ export class EditProfileComponent implements OnInit, OnDestroy {
   
     addFavoriteFood()
     {
-      const favorite = this.fb.group({
+      const foodList = this.fb.group({
         favFood: [] //key and formControlName
       })
   
-      this.foodForms.push(favorite);
+      this.foodForms.push(foodList);
     }
   
     deleteFavoriteFood(i) {
@@ -153,11 +153,11 @@ export class EditProfileComponent implements OnInit, OnDestroy {
 
     addInterest()
     {
-      const favorite = this.fb.group({
+      const interestList = this.fb.group({
         interest: [] //key and formControlName
       })
   
-      this.interestForms.push(favorite);
+      this.interestForms.push(interestList);
     }
     
     deleteInterest(i) {
@@ -222,9 +222,33 @@ export class EditProfileComponent implements OnInit, OnDestroy {
     return this.options.filter((option) =>
       option.toLowerCase().includes(filterValue)
     );
-  }}
+  }
 
-  
+  updateUserProfileData() {
+
+    const formValue = this.editProfileForm.value;
+    console.log(formValue)
+    //Sets user data to firestore on login for more accurate data
+    
+    const userRef: AngularFirestoreDocument<UserProfile> = this.afs.doc(
+      `profile/${this.profileID}`
+    );
+
+    const data = {
+      uid: this.profileID,
+      name: formValue["name"], 
+      email: formValue["email"],
+      city: formValue["city"], 
+      gender: formValue["gender"], 
+      career: formValue["career"],
+      favoriteFoods: formValue["favoriteFoods"],
+      interests: formValue["interests"]
+    };
+
+    return userRef.set({...data}, { merge: true });
+  };
+
+}
   function removeDuplicates(array: Array<string>) {
     return array.filter((a, b) => array.indexOf(a) === b);
   }

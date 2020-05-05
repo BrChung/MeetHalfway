@@ -3,11 +3,10 @@ import { AngularFireAuth } from "@angular/fire/auth";
 import { FormBuilder, FormGroup, FormArray, FormsModule, Validators } from '@angular/forms';
 import * as firebase from 'firebase';
 import { AngularFirestore, AngularFirestoreDocument } from '@angular/fire/firestore';
-//import { Observable } from 'rxjs';
 import { AngularFireDatabase } from '@angular/fire/database';
 import { UserProfile } from "../models/profile";
 import { getMatIconNameNotFoundError } from '@angular/material/icon';
-//import { getMaxListeners } from 'cluster';
+import { Router } from '@angular/router';
 
 
 //only work here
@@ -154,7 +153,7 @@ export class ProfilePageComponent implements OnInit {
     };
 
     return userRef.set({...data}, { merge: true });
-  }
+  };
 }
  
 // work on editing the current values. this adds values, so we need to edit them. if the profile or user id exists,
