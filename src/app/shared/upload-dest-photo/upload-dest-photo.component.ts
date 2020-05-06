@@ -76,6 +76,10 @@ export class UploadDestPhotoComponent implements OnInit {
           dateUploaded: Date.now(),
           fromOwner: this.fromOwner,
         });
+
+        this.db.collection("destinations").doc(this.destID).update({
+          thumbnail: thumbURL,
+        });
       })
     );
   }

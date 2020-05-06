@@ -1,6 +1,6 @@
 agm-map {
   width: inherit;
-  height: 70vh;
+  height: 90vh;
 }
 
 .results-page {
@@ -48,4 +48,21 @@ agm-map {
   margin-top: 24px;
   margin-bottom: 24px;
   margin-left: 22px;
+}
+
+.locationInfo {
+  position: absolute;
+  left: 90%;
+  top: 20%;
+  text-align: right;
+}
+
+.destinationImg {
+  width: 125px;
+  height: 100px;
+  margin-right: 8px;
+}
+
+.destinationContainer {
+  display: flex;
 }

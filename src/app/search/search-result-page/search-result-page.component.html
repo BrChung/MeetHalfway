@@ -2,7 +2,7 @@
   <div class="left-container">
     <div class="list-container">
       <div class="title">
-        <span>{{ title }}</span>
+        <h1>{{ title }}</h1>
       </div>
       <div
         class="list-item"
@@ -16,15 +16,46 @@
           (mouseleave)="destination.hovered = false"
           routerLink="{{ '/dest/' + destination.destID }}"
         >
-          <!-- routerLink="/dest/add" -->
-          <mat-card-content>
-            <mat-card-title>
-              {{ i + 1 + ". " + destination.name }}</mat-card-title
-            >
-            <mat-card-subtitle>
-              {{ destination.stars }} stars
-            </mat-card-subtitle>
-          </mat-card-content>
+          <div class="destinationContainer">
+            <img
+              class="destinationImg"
+              [src]="
+                destination.thumbnail ||
+                'https://firebasestorage.googleapis.com/v0/b/project-midzo.appspot.com/o/destination%2Fthe-factory-bouldering%2F1588801809927_location_250x200.png?alt=media&token=96c07ba4-3f23-4597-99b7-d91c4f36bbc2'
+              "
+            />
+            <mat-card-content>
+              <mat-card-title>
+                {{ i + 1 + ". " + destination.name }}</mat-card-title
+              >
+              <mat-card-subtitle>
+                {{ destination.stars }} stars -
+                {{ destination.reviewCount }} reviews
+                <p>
+                  <b
+                    >Category:
+                    <a
+                      *ngFor="
+                        let category of destination.categories;
+                        last as last
+                      "
+                    >
+                      <a *ngIf="!last">{{ category }}, </a>
+                      <a *ngIf="last">{{ category }}</a>
+                    </a></b
+                  >
+                </p>
+                <div class="locationInfo">
+                  <p>
+                    {{ destination.phoneNumber.number }}
+                  </p>
+                  <p>
+                    {{ destination.streetAddress }}
+                  </p>
+                </div>
+              </mat-card-subtitle>
+            </mat-card-content>
+          </div>
         </mat-card>
       </div>
     </div>

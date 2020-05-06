@@ -195,7 +195,8 @@ export class AddDestinationPageComponent implements OnInit {
       formValue["address"] = formattedAddress;
       formValue["categories"] = removeDuplicates(formValue["categories"]);
       formValue["createdAt"] = Date.now();
-      formValue["pictures"] = [];
+      formValue["thumbnail"] =
+        "https://firebasestorage.googleapis.com/v0/b/project-midzo.appspot.com/o/destination%2Fthe-factory-bouldering%2F1588801809927_location_250x200.png?alt=media&token=96c07ba4-3f23-4597-99b7-d91c4f36bbc2";
       formValue["description"] = null;
       formValue["stars"] = 0;
       formValue["reviewCount"] = 0;
