@@ -20,7 +20,7 @@ import {
   styleUrls: ["./reviews.component.scss"],
 })
 export class ReviewsComponent implements OnInit {
-  @Input() destID: string = "the-factory-bouldering";
+  @Input() destID;
 
   addReviewForm: FormGroup;
 

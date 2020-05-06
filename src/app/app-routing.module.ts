@@ -1,8 +1,6 @@
-
 import { NgModule } from "@angular/core";
 import { Routes, RouterModule } from "@angular/router";
 import { HomePageComponent } from "./home-page/home-page.component";
-import { ReviewsComponent } from "./reviews/reviews.component";
 
 const routes: Routes = [
   // { path: '', component: HomePageComponent },
@@ -22,7 +20,6 @@ const routes: Routes = [
         (m) => m.DestinationModule
       ),
   },
-  { path: "review", component: ReviewsComponent },
 ];
 
 @NgModule({

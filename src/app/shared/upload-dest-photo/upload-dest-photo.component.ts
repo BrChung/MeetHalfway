@@ -41,9 +41,18 @@ export class UploadDestPhotoComponent implements OnInit {
 
     // The storage path
     const path = `destination/${this.destID}/${Date.now()}_${this.file.name}`;
+    const idx = this.file.name.lastIndexOf(".");
+    if (idx > -1) {
+      var thumbFileName =
+        this.file.name.substr(0, idx) + "_250x200" + this.file.name.substr(idx);
+    }
+    const thumbPath = `destination/${
+      this.destID
+    }/${Date.now()}_${thumbFileName}`;
 
     // Reference to storage bucket
     const ref = this.storage.ref(path);
+    const thumbRef = this.storage.ref(thumbPath);
 
     // The main task
     this.task = this.storage.upload(path, this.file);
@@ -52,14 +61,16 @@ export class UploadDestPhotoComponent implements OnInit {
     this.percentage = this.task.percentageChanges();
 
     this.snapshot = this.task.snapshotChanges().pipe(
-      tap(console.log),
-      // The file's download URL
       finalize(async () => {
         this.downloadURL = await ref.getDownloadURL().toPromise();
+
+        const thumbURL = await keepTrying(10, thumbRef);
+        console.log(thumbURL);
 
         this.db.collection("destination-images").add({
           destID: this.destID,
           downloadURL: this.downloadURL,
+          thumbURL: thumbURL,
           path,
           uid: this.uid,
           dateUploaded: Date.now(),
@@ -75,4 +86,31 @@ export class UploadDestPhotoComponent implements OnInit {
       snapshot.bytesTransferred < snapshot.totalBytes
     );
   }
+}
+//https://stackoverflow.com/questions/58977241/how-to-get-the-resized-downloadurl-after-upload-with-firebase-storage-web-sdk
+function delay(t, v?) {
+  return new Promise(function (resolve) {
+    setTimeout(resolve.bind(null, v), t);
+  });
+}
+
+async function keepTrying(triesRemaining, storageRef) {
+  if (triesRemaining < 0) {
+    return Promise.reject("out of tries");
+  }
+
+  return await storageRef
+    .getDownloadURL()
+    .toPromise()
+    .catch((error) => {
+      switch (error.code) {
+        case "storage/object-not-found":
+          return delay(2000).then(() => {
+            return keepTrying(triesRemaining - 1, storageRef);
+          });
+        default:
+          console.log(error);
+          return Promise.reject(error);
+      }
+    });
 }

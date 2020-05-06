@@ -15,11 +15,9 @@ export class SearchResultPageComponent implements OnInit {
   location: Location;
   points: Observable<any>;
   geo: any;
-  radius = new BehaviorSubject(1);
+  radius = new BehaviorSubject(5);
   latitude: number;
   longitude: number;
-  // curr_lat: number;
-  // curr_lng: number;
   previousWindow;
   tags: Array<string>;
   destinations: Array<any>;
@@ -74,11 +72,11 @@ export class SearchResultPageComponent implements OnInit {
     var destinations;
 
     if (this.tags.length === 0 || this.tags[0] === "null") {
-      destinations = firebase.firestore().collection("demo-destinations");
+      destinations = firebase.firestore().collection("destinations");
     } else {
       destinations = firebase
         .firestore()
-        .collection("demo-destinations")
+        .collection("destinations")
         .where("category", "array-contains-any", this.tags);
     }
 

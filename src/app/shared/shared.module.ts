@@ -9,6 +9,7 @@ import { MatSidenavModule } from "@angular/material/sidenav";
 import { MatListModule } from "@angular/material/list";
 import { MatMenuModule } from "@angular/material/menu";
 import { RouterModule } from "@angular/router";
+import { FormsModule, ReactiveFormsModule } from "@angular/forms";
 import { MatCardModule } from "@angular/material/card";
 import { MatFormFieldModule } from "@angular/material/form-field";
 import { MatInputModule } from "@angular/material/input";
@@ -19,12 +20,15 @@ import { ShellComponent } from "./shell/shell.component";
 import { DropzoneDirective } from "./dropzone.directive";
 import { UploaderComponent } from "./uploader/uploader.component";
 import { UploadDestPhotoComponent } from "./upload-dest-photo/upload-dest-photo.component";
+import { ReviewsComponent } from "./reviews/reviews.component";
+import { NgImageSliderModule } from "ng-image-slider";
 
 const components = [
   ShellComponent,
   DropzoneDirective,
   UploaderComponent,
   UploadDestPhotoComponent,
+  ReviewsComponent,
 ];
 
 const modules = [
@@ -32,6 +36,8 @@ const modules = [
   MatToolbarModule,
   MatIconModule,
   LayoutModule,
+  FormsModule,
+  ReactiveFormsModule,
   MatSidenavModule,
   MatListModule,
   MatMenuModule,
@@ -42,12 +48,19 @@ const modules = [
   MatSnackBarModule,
   MatAutocompleteModule,
   MatRippleModule,
+  NgImageSliderModule,
   CommonModule,
 ];
 
 @NgModule({
   declarations: [...components, ShellComponent],
   imports: [...modules],
-  exports: [...components, ...modules, ShellComponent, UploaderComponent],
+  exports: [
+    ...components,
+    ...modules,
+    ShellComponent,
+    UploaderComponent,
+    ReviewsComponent,
+  ],
 })
 export class SharedModule {}

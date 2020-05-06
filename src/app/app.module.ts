@@ -17,7 +17,6 @@ import { GeofirexService } from "./services/geofirex.service";
 import { GeocodingService } from "./services/geocoding.service";
 
 import { HttpClientModule } from "@angular/common/http";
-import { FormsModule, ReactiveFormsModule } from "@angular/forms";
 import { MatSelectModule } from "@angular/material/select";
 import { MatFormFieldModule } from "@angular/material/form-field";
 
@@ -25,10 +24,9 @@ import { NgxIntlTelInputModule } from "ngx-intl-tel-input";
 import { BsDropdownModule } from "ngx-bootstrap/dropdown";
 
 import { AgmCoreModule } from "@agm/core";
-import { ReviewsComponent } from "./reviews/reviews.component";
 
 @NgModule({
-  declarations: [AppComponent, HomePageComponent, ReviewsComponent],
+  declarations: [AppComponent, HomePageComponent],
   imports: [
     BrowserModule,
     AppRoutingModule,
@@ -39,8 +37,6 @@ import { ReviewsComponent } from "./reviews/reviews.component";
     AngularFireAuthModule,
     AngularFireStorageModule,
     HttpClientModule,
-    FormsModule,
-    ReactiveFormsModule,
     MatSelectModule,
     MatFormFieldModule,
     NgxIntlTelInputModule,

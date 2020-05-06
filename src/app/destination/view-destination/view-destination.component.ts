@@ -17,11 +17,11 @@ export class ViewDestinationComponent implements OnInit, OnDestroy {
   private destDoc: AngularFirestoreDocument<any>;
   dest: any;
   private destSub: Subscription;
+  destPhoto: any;
+  imageObject = [];
+  private destPhotoSub: Subscription;
 
-  constructor(
-    private route: ActivatedRoute, 
-    private afs: AngularFirestore
-  ) {}
+  constructor(private route: ActivatedRoute, private afs: AngularFirestore) {}
 
   //Photos, reviews (stars and count), change title based on biz
   ngOnInit(): void {
@@ -33,8 +33,26 @@ export class ViewDestinationComponent implements OnInit, OnDestroy {
     this.destDoc = this.afs.doc<any>(`destinations/${this.destID}`);
     this.destSub = this.destDoc.snapshotChanges().subscribe((data) => {
       if (data.payload.exists) {
-        console.log("exists");
         this.dest = data.payload.data();
+      } else {
+        console.log("N/A");
+      }
+    });
+
+    const photoRef = this.afs.collection("destination-images", (ref) =>
+      ref.where("destID", "==", this.destID)
+    );
+    this.destPhotoSub = photoRef.valueChanges().subscribe((data) => {
+      if (data) {
+        this.imageObject = [];
+        data.forEach((photo) => {
+          this.imageObject.push({
+            image: photo["downloadURL"],
+            thumbImage: photo["thumbURL"],
+          });
+        });
+        this.destPhoto = data;
+        console.log("Destination Photos:", this.imageObject);
       } else {
         console.log("N/A");
       }
@@ -44,5 +62,6 @@ export class ViewDestinationComponent implements OnInit, OnDestroy {
   ngOnDestroy(): void {
     this.routerSub.unsubscribe();
     this.destSub.unsubscribe();
+    this.destPhotoSub.unsubscribe();
   }
 }

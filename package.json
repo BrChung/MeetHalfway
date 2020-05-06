@@ -13,7 +13,7 @@
   "dependencies": {
     "@agm/core": "^1.1.0",
     "@angular/animations": "~9.0.3",
-    "@angular/cdk": "^9.1.2",
+    "@angular/cdk": "^9.2.2",
     "@angular/common": "~9.0.3",
     "@angular/compiler": "~9.0.3",
     "@angular/core": "~9.0.3",
@@ -29,6 +29,7 @@
     "geofirex": "^0.1.0",
     "google-libphonenumber": "^3.2.9",
     "intl-tel-input": "^14.1.0",
+    "ng-image-slider": "^2.5.0",
     "ngx-bootstrap": "^5.6.1",
     "ngx-intl-tel-input": "^2.3.4",
     "rxjs": "~6.5.4",
