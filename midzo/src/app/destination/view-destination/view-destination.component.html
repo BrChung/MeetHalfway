@@ -1,10 +1,28 @@
 <p>view-destination works!</p>
 {{ dest | json }}
+<mat-divider></mat-divider>
 
 <div class="page-container" *ngIf="dest | json">
-    <div>
-        <H1><b>{{ dest.destID }}</b></H1>
-        <p>{{ dest.stars }}</p>
-        <h3>{{ dest.categories }}</h3>
+    <div class="header">
+        <H1><b>{{ dest.name }}</b></H1>
+        <p>Rating: {{ dest.stars }}</p>
+        <h3>Category: {{ dest.categories }}</h3>
+    </div>
+    <mat-divider></mat-divider>
+    <div class="info">
+        <h2><b>Business Info</b></h2>
+        <p>{{ dest.address }}</p>
+        <p>{{ dest.phoneNumber.dialCode + dest.phoneNumber.number}}</p>
+        <p>{{ dest.website }}</p>
+    </div>
+    <mat-divider></mat-divider>
+    <div class="reviews">
+        <h2>Reviews</h2>
+        <div *ngFor="let review of dest.lastFiveReviews">
+            <p><b>User: </b> {{ review.uid }} <br>
+            <b>Stars: </b> {{ review.stars }} <br>
+            <b>Review: </b>{{review.content}}</p>
+            <mat-divider></mat-divider>
+        </div>
     </div>
 </div>
