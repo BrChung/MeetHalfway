@@ -49,7 +49,9 @@ export class ReviewsComponent implements OnInit {
   }
 
   async postReview() {
-    const { uid } = await this.afAuth.user.pipe(first()).toPromise();
+    const { uid, displayName, photoURL } = await this.afAuth.user
+      .pipe(first())
+      .toPromise();
 
     const formValue = this.addReviewForm.value;
 
@@ -58,6 +60,8 @@ export class ReviewsComponent implements OnInit {
     console.log(formValue["review"]);
     const data = {
       uid,
+      displayName,
+      photoURL,
       content: formValue["review"],
       stars: Number(formValue["stars"]),
       createdAt: Date.now(),

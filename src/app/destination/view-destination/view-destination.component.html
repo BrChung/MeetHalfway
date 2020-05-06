@@ -1,15 +1,18 @@
 <div class="page-container" *ngIf="dest | json">
-  <ng-image-slider
-    [images]="imageObject"
-    [imageSize]="{ width: '250px', height: '200px', space: 3 }"
-    #nav
-  ></ng-image-slider>
+  <div class="imageSlider">
+    <ng-image-slider
+      [images]="imageObject"
+      [imageSize]="{ width: '250px', height: '200px', space: 3 }"
+      #nav
+    ></ng-image-slider>
+  </div>
   <mat-card class="header">
     <h1>
       <b>{{ dest.name }}</b>
     </h1>
     <p *ngIf="dest.stars">Rating: {{ dest.stars.toPrecision(2) }}</p>
     <p *ngIf="dest.reviewCount == 0">No Reviews Yet!</p>
+    <p *ngIf="dest.reviewCount">{{ dest.reviewCount }} reviews</p>
     <h3>
       Category:
       <a *ngFor="let category of dest.categories; last as last">
@@ -18,7 +21,6 @@
       </a>
     </h3>
   </mat-card>
-  <mat-divider></mat-divider>
   <mat-card class="info">
     <h2><b>Business Info</b></h2>
     <p mat-body>{{ dest.address }}</p>
@@ -27,22 +29,29 @@
     </p>
     <p mat-body>{{ dest.website }}</p>
   </mat-card>
-  <mat-divider></mat-divider>
+
   <div class="reviews">
     <h2 mat-subheader>Reviews</h2>
-    <app-reviews [destID]="destID"></app-reviews>
+    <div class="leaveReview">
+      <app-reviews [destID]="destID"></app-reviews>
+    </div>
     <div *ngIf="dest.lastFiveReviews">
       <div *ngFor="let review of dest.lastFiveReviews">
         <mat-card class="review-card">
-          <mat-card-subtitle><b>User: </b> {{ review.uid }}</mat-card-subtitle>
-          <mat-card-subtitle
-            ><b>Stars: </b> {{ review.stars.toPrecision(2) }}</mat-card-subtitle
-          >
-          <mat-card-content
-            ><b>Review: </b>{{ review.content }}</mat-card-content
-          >
+          <div>
+            <img
+              class="reviewProfileImage"
+              [src]="review.photoURL || 'assets/default-user.svg'"
+            />
+          </div>
+          <div>
+            <mat-card-subtitle>
+              <b>{{ review.displayName }}</b> -
+              {{ review.stars.toPrecision(2) }} stars
+            </mat-card-subtitle>
+            <mat-card-content>{{ review.content }}</mat-card-content>
+          </div>
         </mat-card>
-        <mat-divider></mat-divider>
       </div>
     </div>
   </div>

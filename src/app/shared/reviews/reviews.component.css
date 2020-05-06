@@ -2,19 +2,16 @@
   padding-left: 25px;
   padding-right: 25px;
 }
-
 .reviewForm {
   display: flex;
   flex-direction: column;
 }
-
 .profileImage {
   margin-top: 20px;
   width: 4.75em;
   border-radius: 50%;
   margin: 0 10px 5px;
 }
-
 .reviewField {
   height: 500px;
   width: 100%;

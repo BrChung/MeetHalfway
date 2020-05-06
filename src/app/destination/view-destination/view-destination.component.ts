@@ -1,6 +1,7 @@
 import { Component, OnInit, OnDestroy } from "@angular/core";
 import { ActivatedRoute } from "@angular/router";
 import { Subscription, Observable } from "rxjs";
+import { take } from "rxjs/operators";
 import {
   AngularFirestore,
   AngularFirestoreDocument,
@@ -31,7 +32,7 @@ export class ViewDestinationComponent implements OnInit, OnDestroy {
 
     //Use get instead
     this.destDoc = this.afs.doc<any>(`destinations/${this.destID}`);
-    this.destSub = this.destDoc.snapshotChanges().subscribe((data) => {
+    this.destSub = this.destDoc.snapshotChanges().subscribe(async (data) => {
       if (data.payload.exists) {
         this.dest = data.payload.data();
       } else {
@@ -52,7 +53,6 @@ export class ViewDestinationComponent implements OnInit, OnDestroy {
           });
         });
         this.destPhoto = data;
-        console.log("Destination Photos:", this.imageObject);
       } else {
         console.log("N/A");
       }
