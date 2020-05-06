@@ -1,27 +1,30 @@
-<p>view-destination works!</p>
-{{ dest | json }}
-<mat-divider></mat-divider>
-
 <div class="page-container" *ngIf="dest | json">
-    <div class="header">
-        <H1><b>{{ dest.name }}</b></H1>
-        <p>Rating: {{ dest.stars }}</p>
-        <h3>Category: {{ dest.categories }}</h3>
-    </div>
+    <mat-card class="header">
+        <h1><b>{{ dest.name }}</b></h1>
+        <p>Rating: {{ dest.stars.toPrecision(2) }}</p>
+        <h3>Category:
+            <a *ngFor="let category of dest.categories; last as last">
+                <a *ngIf="!last">{{ category }}, </a>
+                <a *ngIf="last">{{ category }}</a>
+            </a>
+        </h3>
+    </mat-card>
     <mat-divider></mat-divider>
-    <div class="info">
+    <mat-card class="info">
         <h2><b>Business Info</b></h2>
-        <p>{{ dest.address }}</p>
-        <p>{{ dest.phoneNumber.dialCode + dest.phoneNumber.number}}</p>
-        <p>{{ dest.website }}</p>
-    </div>
+        <p mat-body>{{ dest.address }}</p>
+        <p mat-body>{{ dest.phoneNumber.dialCode + ' ' + dest.phoneNumber.number}}</p>
+        <p mat-body>{{ dest.website }}</p>
+    </mat-card>
     <mat-divider></mat-divider>
     <div class="reviews">
-        <h2>Reviews</h2>
+        <h2 mat-subheader>Reviews</h2>
         <div *ngFor="let review of dest.lastFiveReviews">
-            <p><b>User: </b> {{ review.uid }} <br>
-            <b>Stars: </b> {{ review.stars }} <br>
-            <b>Review: </b>{{review.content}}</p>
+            <mat-card class="review-card">
+                <mat-card-subtitle><b>User: </b> {{ review.uid }}</mat-card-subtitle>
+                <mat-card-subtitle><b>Stars: </b> {{ review.stars.toPrecision(2) }}</mat-card-subtitle>
+                <mat-card-content><b>Review: </b>{{review.content}}</mat-card-content>
+            </mat-card>            
             <mat-divider></mat-divider>
         </div>
     </div>
