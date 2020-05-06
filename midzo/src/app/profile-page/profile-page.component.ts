@@ -29,6 +29,7 @@ export class ProfilePageComponent implements OnInit {
     private fb: FormBuilder) {this.afAuth.authState.subscribe(user => { //If logged in, subscribe to the user, get uid. If not, set to null
       if(user) {
         this.uid = user.uid;
+        //test email here
       } else {
         // Empty the value when user signs out
         this.uid = null;
@@ -156,6 +157,3 @@ export class ProfilePageComponent implements OnInit {
   };
 }
  
-// work on editing the current values. this adds values, so we need to edit them. if the profile or user id exists,
-//extract the data and edit it. put the values as the default data in the form
-

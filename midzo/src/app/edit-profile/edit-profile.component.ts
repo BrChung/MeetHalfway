@@ -37,7 +37,7 @@ export class EditProfileComponent implements OnInit, OnDestroy {
 
   editProfileForm: FormGroup;
 
-  constructor(private route: ActivatedRoute, 
+  constructor(private route: ActivatedRoute,
     private afs:AngularFirestore,
     private fb: FormBuilder) {}
 
@@ -64,7 +64,7 @@ export class EditProfileComponent implements OnInit, OnDestroy {
           Validators.required,
         ]],
         favoriteFoods: this.fb.array([]),
-        interests: this.fb.array([])      
+        interests: this.fb.array([])
     });
 
 
@@ -78,19 +78,19 @@ export class EditProfileComponent implements OnInit, OnDestroy {
           console.log("N/A");
         }
 
-        for (let i = 0; i < this.profile["interests"].length - 1; i++) {
+        for (let i = 0; i < this.profile["interests"].length; i++) {
           this.addInterest();
         }
 
-        for (let i = 0; i < this.profile["favoriteFoods"].length - 1; i++) {
+        for (let i = 0; i < this.profile["favoriteFoods"].length; i++) {
           this.addFavoriteFood();
         }
 
         this.editProfileForm.setValue({
-          name: this.profile["name"], 
+          name: this.profile["name"],
           email: this.profile["email"],
-          city: this.profile["city"], 
-          gender: this.profile["gender"], 
+          city: this.profile["city"],
+          gender: this.profile["gender"],
           career: this.profile["career"],
           favoriteFoods: this.profile["favoriteFoods"],
           interests: this.profile["interests"]
@@ -119,7 +119,7 @@ export class EditProfileComponent implements OnInit, OnDestroy {
       this.routerSub.unsubscribe();
       this.profileSub.unsubscribe();
     }
-    
+
 
     //For food
     get foodForms() {
@@ -132,16 +132,16 @@ export class EditProfileComponent implements OnInit, OnDestroy {
     //   )
     // }
 
-  
+
     addFavoriteFood()
     {
       const foodList = this.fb.group({
         favFood: [] //key and formControlName
       })
-  
+
       this.foodForms.push(foodList);
     }
-  
+
     deleteFavoriteFood(i) {
       this.foodForms.removeAt(i);
     }
@@ -156,10 +156,10 @@ export class EditProfileComponent implements OnInit, OnDestroy {
       const interestList = this.fb.group({
         interest: [] //key and formControlName
       })
-  
+
       this.interestForms.push(interestList);
     }
-    
+
     deleteInterest(i) {
       this.interestForms.removeAt(i);
     }
@@ -169,7 +169,7 @@ export class EditProfileComponent implements OnInit, OnDestroy {
     //     new FormControl("", [Validators.required, this.requireMatch.bind(this)])
     //   )
     // }
-    
+
     private requireMatch(control: FormControl): ValidationErrors | null {
       const selection: any = control.value;
       if (this.options && this.options.indexOf(selection) < 0) {
@@ -183,22 +183,22 @@ export class EditProfileComponent implements OnInit, OnDestroy {
     {
       return this.editProfileForm.get('name')
     }
-  
+
     get email()
     {
       return this.editProfileForm.get('email')
     }
-  
+
     get city()
     {
       return this.editProfileForm.get('city')
     }
-  
+
     get favorites()
     {
       return this.editProfileForm.get('favorites')
     }
-    
+
     get career()
     {
       return this.editProfileForm.get('career')
@@ -229,17 +229,17 @@ export class EditProfileComponent implements OnInit, OnDestroy {
     const formValue = this.editProfileForm.value;
     console.log(formValue)
     //Sets user data to firestore on login for more accurate data
-    
+
     const userRef: AngularFirestoreDocument<UserProfile> = this.afs.doc(
       `profile/${this.profileID}`
     );
 
     const data = {
       uid: this.profileID,
-      name: formValue["name"], 
+      name: formValue["name"],
       email: formValue["email"],
-      city: formValue["city"], 
-      gender: formValue["gender"], 
+      city: formValue["city"],
+      gender: formValue["gender"],
       career: formValue["career"],
       favoriteFoods: formValue["favoriteFoods"],
       interests: formValue["interests"]
