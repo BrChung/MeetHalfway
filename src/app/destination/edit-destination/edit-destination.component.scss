@@ -39,3 +39,9 @@ agm-map {
   opacity: 80%;
   visibility: hidden;
 }
+
+.editDestinationForm {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
