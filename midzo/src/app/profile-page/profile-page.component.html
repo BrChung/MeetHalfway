@@ -1,0 +1,91 @@
+<!--formControlName is what we are looking for in .component.ts-->
+<form [formGroup]="myForm">
+
+<div class="content">
+    Value: {{ myForm.value | json }}
+
+    
+    <hr>
+    <mat-form-field>
+        <input matInput placeholder="Name" formControlName="name">
+    </mat-form-field>
+    <br>
+
+    <mat-form-field>
+        <input matInput placeholder="email" formControlName="email">
+
+        <mat-error *ngIf="email.invalid && email.touched">
+            Your email does not look right
+        </mat-error>
+
+    </mat-form-field>
+    <br>
+
+    <mat-form-field>
+        <input matInput placeholder="City" formControlName="city">
+    </mat-form-field>
+    <br>
+
+    <mat-form-field>
+        <input matInput placeholder="Career" formControlName="career">
+    </mat-form-field>
+    <br>
+
+
+    <!--Value is what is shown on the screen-->
+    Pick your gender<br>
+    <div class="custom-control custom-radio">
+        <input id="male" type="radio" class="custom-control-input" value="Male" name="gender" formControlName="gender">
+              <label class="custom-control-label" for="male">Male</label>
+    </div>
+
+    <div class="custom-control custom-radio">
+        <input id="female" type="radio" class="custom-control-input" value="Female" name="gender" formControlName="gender">
+              <label class="custom-control-label" for="female">Female</label>
+    </div>
+
+    <div class="custom-control custom-radio">
+        <input id="na" type="radio" class="custom-control-input" value="N/A" name="gender" formControlName="gender">
+              <label class="custom-control-label" for="NA">N/A</label>
+    </div>
+
+    <div class="custom-control custom-radio">
+        <input id="pref" type="radio" class="custom-control-input" value="Prefer not to say" name="gender" formControlName="gender">
+              <label class="custom-control-label" for="pref">Prefer not to say</label>
+    </div>
+    <br>
+    List of favorite foods:
+    <br>
+    <div formArrayName="favoriteFoods"><!--Holds all nested key and values -->
+        <div *ngFor="let fav of foodForms.controls; let i=index"
+              [formGroupName]="i">
+
+            <input formControlName="favFood"> <!--Key for the pair inside formArray -->
+
+            <button (click)="deleteFavoriteFood(i)">Delete favorite food</button>
+        </div>
+    </div>
+
+    <button (click)="addFavoriteFood()">Add favorite food</button>
+    <br>
+    <br>
+    List of interests:
+    <br>
+    <div formArrayName="interests"> <!--Holds all nested key and values -->
+        <div *ngFor="let fav of interestForms.controls; let i=index"
+              [formGroupName]="i">
+
+            <input formControlName="interest"> <!--Key for the pair inside formArray -->
+
+            <button (click)="deleteInterest(i)">Delete interest</button>
+        </div>
+    </div>
+    <button (click)="addInterest()">Add interest</button>
+    <br>
+    <br>
+    <button (click)="updateUserProfileData()">Submit profile</button>
+    <br>
+    <button class="nav-item nav-link-edit" [routerLink]="['/edit-profile/' + uid]">Edit profile</button>
+ </div>
+
+</form>
