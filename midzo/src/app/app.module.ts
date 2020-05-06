@@ -1,37 +1,34 @@
-import { BrowserModule } from '@angular/platform-browser';
-import { NgModule } from '@angular/core';
+import { BrowserModule } from "@angular/platform-browser";
+import { NgModule } from "@angular/core";
 
-import { AppRoutingModule } from './app-routing.module';
-import { AppComponent } from './app.component';
-import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
-import { SharedModule } from './shared/shared.module';
-import { HomePageComponent } from './home-page/home-page.component';
-import { environment } from '../environments/environment';
+import { AppRoutingModule } from "./app-routing.module";
+import { AppComponent } from "./app.component";
+import { BrowserAnimationsModule } from "@angular/platform-browser/animations";
+import { SharedModule } from "./shared/shared.module";
+import { HomePageComponent } from "./home-page/home-page.component";
+import { environment } from "../environments/environment";
 
-import { AngularFireModule } from '@angular/fire'
-import { AngularFirestoreModule } from '@angular/fire/firestore'
-import { AngularFireAuthModule } from '@angular/fire/auth'
+import { AngularFireModule } from "@angular/fire";
+import { AngularFirestoreModule } from "@angular/fire/firestore";
+import { AngularFireAuthModule } from "@angular/fire/auth";
+import { AngularFireStorageModule } from "@angular/fire/storage";
 
+import { GeofirexService } from "./services/geofirex.service";
+import { GeocodingService } from "./services/geocoding.service";
 
+import { HttpClientModule } from "@angular/common/http";
+import { FormsModule, ReactiveFormsModule } from "@angular/forms";
+import { MatSelectModule } from "@angular/material/select";
+import { MatFormFieldModule } from "@angular/material/form-field";
 
-import { GeofirexService } from './services/geofirex.service';
-import { GeocodingService } from './services/geocoding.service';
+import { NgxIntlTelInputModule } from "ngx-intl-tel-input";
+import { BsDropdownModule } from "ngx-bootstrap/dropdown";
 
-import { HttpClientModule } from '@angular/common/http';
-import { ProfilePageComponent } from './profile-page/profile-page.component';
-
-import { ReactiveFormsModule } from '@angular/forms';
-import { FormsModule } from '@angular/forms';
-import {MatRadioModule} from'@angular/material/radio';
-import { EditProfileComponent } from './edit-profile/edit-profile.component';
+import { AgmCoreModule } from "@agm/core";
+import { ReviewsComponent } from "./reviews/reviews.component";
 
 @NgModule({
-  declarations: [
-    AppComponent,
-    HomePageComponent,
-    ProfilePageComponent,
-    EditProfileComponent
-  ],
+  declarations: [AppComponent, HomePageComponent, ReviewsComponent],
   imports: [
     BrowserModule,
     AppRoutingModule,
@@ -40,17 +37,17 @@ import { EditProfileComponent } from './edit-profile/edit-profile.component';
     AngularFireModule.initializeApp(environment.firebase),
     AngularFirestoreModule,
     AngularFireAuthModule,
+    AngularFireStorageModule,
     HttpClientModule,
-    ReactiveFormsModule,
- 
     FormsModule,
-    MatRadioModule
-
+    ReactiveFormsModule,
+    MatSelectModule,
+    MatFormFieldModule,
+    NgxIntlTelInputModule,
+    BsDropdownModule.forRoot(),
+    AgmCoreModule.forRoot(environment.googleMaps),
   ],
-  providers: [
-    GeofirexService,
-    GeocodingService
-    ],
-  bootstrap: [AppComponent]
+  providers: [GeofirexService, GeocodingService],
+  bootstrap: [AppComponent],
 })
-export class AppModule { }
+export class AppModule {}

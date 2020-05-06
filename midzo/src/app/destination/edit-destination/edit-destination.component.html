@@ -1,0 +1,157 @@
+<p>edit-destination works!</p>
+<div *ngIf="pageState" class="editDestinationForm">
+  {{ dest | json }}
+  <mat-card>
+    <form
+      [formGroup]="editDestForm"
+      novalidate
+      [hidden]="success"
+      (ngSubmit)="submitHandler()"
+    >
+      <h3>Edit Your Destination Details</h3>
+
+      <mat-form-field>
+        <mat-label>Destination Name</mat-label>
+        <input
+          matInput
+          placeholder="Bob's Kitchen"
+          formControlName="name"
+          maxlength="30"
+        />
+        <mat-error *ngIf="name.invalid">
+          Must be at least four characters
+        </mat-error>
+      </mat-form-field>
+
+      <mat-form-field>
+        <mat-label>Add a description</mat-label>
+        <textarea
+          matInput
+          cdkTextareaAutosize
+          placeholder="Text about the business"
+          formControlName="description"
+          maxlength="1000"
+        >
+        </textarea>
+        <mat-error *ngIf="description.invalid">
+          Error with description
+        </mat-error>
+      </mat-form-field>
+
+      <mat-form-field>
+        <mat-label>Address</mat-label>
+        <input
+          matInput
+          placeholder="1234 Anywhere Ave #840, Buffalo, NY 14201, USA"
+          formControlName="address"
+          maxlength="95"
+        />
+        <mat-error *ngIf="name.invalid">
+          Valid address is required
+        </mat-error>
+      </mat-form-field>
+
+      <ngx-intl-tel-input
+        [onlyCountries]="[CountryISO.UnitedStates]"
+        [maxLength]="15"
+        [tooltipField]="TooltipLabel.Name"
+        [phoneValidation]="true"
+        [separateDialCode]="separateDialCode"
+        name="phoneNumber"
+        formControlName="phoneNumber"
+      >
+      </ngx-intl-tel-input>
+      <mat-error *ngIf="phoneNumber.touched && phoneNumber.errors">
+        A valid phone number is required
+      </mat-error>
+
+      <mat-form-field>
+        <mat-label>Website</mat-label>
+        <input
+          matInput
+          placeholder="https://midzo.co"
+          formControlName="website"
+          maxlength="50"
+        />
+        <mat-error *ngIf="website.invalid && website.touched">
+          URL must be valid
+        </mat-error>
+      </mat-form-field>
+      <h4>Categories</h4>
+      <div *ngFor="let category of categories.controls; index as i">
+        <mat-form-field>
+          <mat-label>Category</mat-label>
+          <input
+            type="text"
+            matInput
+            placeholder="Food"
+            [formControl]="categories.controls[i]"
+            [matAutocomplete]="auto"
+          />
+          <mat-autocomplete #auto="matAutocomplete">
+            <mat-option
+              *ngFor="let option of filteredOptions[i]"
+              [value]="option"
+            >
+              {{ option }}
+            </mat-option>
+          </mat-autocomplete>
+          <mat-error *ngIf="categories.controls[i].errors?.requireMatch"
+            >Value need match available options</mat-error
+          >
+        </mat-form-field>
+        <button
+          mat-raised-button
+          color="warn"
+          type="button"
+          disabled="{{ disableDeleteCat }}"
+          (click)="deleteCategory(i)"
+        >
+          Delete
+        </button>
+      </div>
+
+      <uploader
+        [uid]="this.uid"
+        [destID]="this.destID"
+        [fromOwner]="this.fromOwner"
+      ></uploader>
+
+      <button
+        mat-raised-button
+        color="primary"
+        type="button"
+        disabled="{{ disableAddCat }}"
+        (click)="addCategory()"
+      >
+        Add Category
+      </button>
+
+      <button
+        mat-raised-button
+        type="submit"
+        [disabled]="editDestForm.invalid"
+        color="primary"
+      >
+        Update Destination
+      </button>
+      <mat-error class="server-error">{{ serverMessage }}</mat-error>
+    </form>
+    <div id="map">
+      <agm-map
+        [latitude]="latitude"
+        [longitude]="longitude"
+        [zoom]="15"
+        [minZoom]="13"
+      >
+        <agm-marker [latitude]="latitude" [longitude]="longitude"></agm-marker>
+      </agm-map>
+      <div class="map-cover" [style.visibility]="map_cover_visibility"></div>
+      <div class="loader" [style.visibility]="map_cover_visibility"></div>
+    </div>
+  </mat-card>
+</div>
+
+<div *ngIf="!pageState">
+  <p>Did not load</p>
+</div>

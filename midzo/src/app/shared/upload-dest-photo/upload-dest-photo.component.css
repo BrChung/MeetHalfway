@@ -1,0 +1,6 @@
+progress::-webkit-progress-value {
+  transition: width 0.1s ease;
+}
+img {
+  width: 250px;
+}

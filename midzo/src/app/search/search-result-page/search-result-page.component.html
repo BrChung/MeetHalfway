@@ -1,11 +1,50 @@
-<agm-map [latitude]="this.latitude" [longitude]="this.longitude" [zoom]="12">
-    <agm-marker *ngFor = "let point of (points | async); index as i; trackBy: trackByFn;" [latitude]="point.position.geopoint.latitude" [longitude]="point.position.geopoint.longitude" [label]="{color: 'white', text: (i + 1).toString()+'\u200b'}">
-        <agm-info-window>
-            {{ i + 1 }}
-            <h1>This point is {{ point.hitMetadata.distance }} kilometers from the center</h1>
-            <p>{{ point | json }}</p>
-        </agm-info-window>
-
-
-    </agm-marker>
-</agm-map>
+<div class="results-page">
+  <div class="left-container">
+    <div class="list-container">
+      <div class="title">
+        <span>{{ title }}</span>
+      </div>
+      <div class="list-item" *ngFor="let destination of destinations; index as i">
+        <mat-card matRipple appMaterialElevation class="card" (mouseenter)="destination.hovered = true"
+          (mouseleave)="destination.hovered = false">
+          <!-- routerLink="/dest/add" -->
+          <mat-card-content>
+            <mat-card-title>
+              {{ i + 1 + ". " + destination.name }}</mat-card-title>
+            <mat-card-subtitle> {{ destination.stars }} stars </mat-card-subtitle>
+          </mat-card-content>
+        </mat-card>
+      </div>
+    </div>
+  </div>
+  <div class="right-container">
+    <div class="map-container">
+      <div class="map">
+        <agm-map [latitude]="this.latitude" [longitude]="this.longitude" [zoom]="12">
+          <!--Locations around the center point -->
+          <agm-marker *ngFor="let destination of destinations; index as i" (markerClick)="clickedMarker(infoWindow)"
+            [latitude]="destination.position.geopoint.latitude" [longitude]="destination.position.geopoint.longitude"
+            [label]="{ color: 'white', text: (i + 1).toString() + '\u200b' }" [iconUrl]="
+              destination.hovered
+                ? 'http://maps.google.com/mapfiles/ms/icons/blue.png'
+                : 'http://maps.google.com/mapfiles/ms/icons/red.png'
+            ">
+            <agm-info-window #infoWindow>
+              <h2 style="color:black">
+                {{ destination.name }} is
+                {{ destination.hitMetadata.distance.toPrecision(3) }} kilometers
+                from the center
+              </h2>
+              <p style="color:black">{{ destination | json }}</p>
+            </agm-info-window>
+          </agm-marker>
+          <!-- Center point -->
+          <agm-marker *ngFor="let marker of location.marker" [latitude]="marker.lat" [longitude]="marker.lng"
+            [label]="marker.label">
+          </agm-marker>
+        </agm-map>
+      </div>
+    </div>
+  </div>
+  <!-- <button (click)="incrementR()" type="button">Click Me to Increment</button> -->
+</div>

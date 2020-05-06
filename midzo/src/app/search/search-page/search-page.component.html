@@ -1,11 +1,52 @@
-<form [formGroup]="myForm" (ngSubmit)="submitHandler()">
-
-    <h4>Location 1</h4>
-    <input type="text" formControlName="location1">
-    <h4>Location 2</h4>
-    <input type="text" formControlName="location2">
-    <div class="submit">
-        <button mat-raised-button type="submit" [disabled]="myForm.invalid" color="primary">Let's Go</button>
-    </div>
-
-</form>
+<div class="hero-image" 
+    [ngStyle]="{'background-image': 'linear-gradient(rgba(0, 0, 0, 0.5), 
+    rgba(0, 0, 0, 0.5)), url(' + bgImage + ')'}">    
+  <div class="hero-text">
+    <h1>Long Distance Meetings</h1>
+    <p>Spend less time planning and more time together</p>
+    <br />
+    <form [formGroup]="myForm" (ngSubmit)="submitHandler()">
+      <div class="select-options">
+        <div class="location-option">
+          <mat-form-field>
+            <mat-label>Locations:</mat-label>
+            <select matNativeControl required>
+              <option value="2">2</option>
+              <option value="3">3</option>
+              <option value="4">4</option>
+            </select>
+          </mat-form-field>
+        </div>
+        <div class="meeting-option">
+          <mat-form-field>
+            <mat-label>Meeting Type:</mat-label>
+            <select matNativeControl required formControlName="meetingType">
+              <option
+                  *ngFor="let category of categories"
+                  [ngValue]="category.value">
+                  {{ category.viewValue }}
+              </option>
+            </select>
+          </mat-form-field>
+        </div>
+      </div>
+      <div class="search">
+        <mat-form-field>
+          <input matInput type="text" formControlName="location1" required/>
+          <mat-placeholder 
+              class="placeholder">Enter Location 1...</mat-placeholder>
+        </mat-form-field>
+        <br /><br />
+        <mat-form-field>
+          <input matInput type="text" formControlName="location2" required/>
+          <mat-placeholder 
+              class="placeholder">Enter Location 2...</mat-placeholder>
+        </mat-form-field>
+      </div>
+      <div class="submit">
+        <button mat-raised-button type="submit">Search</button>
+        <button mat-raised-button type="reset">Clear</button>
+      </div>
+    </form>
+  </div>
+</div>

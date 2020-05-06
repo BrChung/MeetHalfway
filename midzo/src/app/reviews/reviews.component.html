@@ -1,0 +1,42 @@
+<p>reviews works!</p>
+
+<mat-card>
+  <form [formGroup]="addReviewForm" novalidate (ngSubmit)="postReview()">
+    <h3>Reviews</h3>
+    <mat-form-field>
+      <mat-label>Leave a Review</mat-label>
+      <textarea
+        matInput
+        cdkTextareaAutosize
+        placeholder="This place is amazing!"
+        formControlName="review"
+        maxlength="2200"
+      >
+      </textarea>
+      <mat-error *ngIf="review.invalid">
+        Review is required
+      </mat-error>
+    </mat-form-field>
+    <mat-form-field>
+      <mat-label>Stars</mat-label>
+      <input
+        matInput
+        cdkTextareaAutosize
+        placeholder="This place is amazing!"
+        formControlName="stars"
+        maxlength="1"
+      />
+      <mat-error *ngIf="stars.invalid">
+        Star must be a number from 0 to 5
+      </mat-error>
+    </mat-form-field>
+    <button
+      mat-raised-button
+      type="submit"
+      [disabled]="addReviewForm.invalid"
+      color="primary"
+    >
+      Submit Review
+    </button>
+  </form>
+</mat-card>
