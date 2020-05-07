@@ -25,8 +25,16 @@ import { BsDropdownModule } from "ngx-bootstrap/dropdown";
 
 import { AgmCoreModule } from "@agm/core";
 
+import { EditProfileComponent } from "./edit-profile/edit-profile.component";
+import { ProfilePageComponent } from "./profile-page/profile-page.component";
+
 @NgModule({
-  declarations: [AppComponent, HomePageComponent],
+  declarations: [
+    AppComponent,
+    HomePageComponent,
+    EditProfileComponent,
+    ProfilePageComponent,
+  ],
   imports: [
     BrowserModule,
     AppRoutingModule,
